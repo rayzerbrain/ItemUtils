@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{122ECD35-4FE3-41E6-9AC6-39A4801F48B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ItemUtils</RootNamespace>
+    <AssemblyName>ItemUtils</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Documents\SL Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\Downloads\Exiledsa\EXILED\Plugins\dependencies\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\Downloads\Exiledsa\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Documents\SL Plugins\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandSystem.Core">
+      <HintPath>..\..\..\Documents\SL Plugins\CommandSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.API, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Bootstrap, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CreditTags, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.CreditTags.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CustomItems, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.CustomItems.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CustomRoles, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.CustomRoles.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Events, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Loader, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Permissions, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Updater, Version=3.1.1.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Updater.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="SemVer">
+      <HintPath>..\..\..\Downloads\Exiledsa\EXILED\Plugins\dependencies\SemVer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\Documents\SL Plugins\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Documents\SL Plugins\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>..\..\..\Downloads\Exiledsa\EXILED\Plugins\dependencies\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\Modifiers\ArmorModifier.cs" />
+    <Compile Include="API\ConfigurableEffect.cs" />
+    <Compile Include="API\Modifiers\ConsumableModifier.cs" />
+    <Compile Include="API\Modifiers\DepletableModifier.cs" />
+    <Compile Include="API\Modifiers\FirearmModifier.cs" />
+    <Compile Include="API\Modifiers\GrenadeModifier.cs" />
+    <Compile Include="API\Modifiers\ItemModifier.cs" />
+    <Compile Include="API\Modifiers\KeycardModifier.cs" />
+    <Compile Include="API\Modifiers\WeaponModifier.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Events\CustomHandler.cs" />
+    <Compile Include="Events\Patches\ObtainingItem.cs" />
+    <Compile Include="Events\EventArgs\ObtainingItemEventArgs.cs" />
+    <Compile Include="PluginMain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
