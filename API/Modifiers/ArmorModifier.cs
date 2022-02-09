@@ -16,8 +16,8 @@ namespace ItemUtils.API.Modifiers
     {
         //all needs testing
         public Dictionary<AmmoType, float> AmmoLimitMultis { get; set; } = new Dictionary<AmmoType, float>();
-        public float HelmetProtectionPercentMulti { get; set; } = 1;
-        public float BodyProtectionPercentMulti { get; set; } = 1;
+        public float HelmetProtectionMulti { get; set; } = 1;
+        public float BodyProtectionMulti { get; set; } = 1;
         public float StaminaUseMulti { get; set; } = 1;
 
         public override void RegisterEvents()
@@ -57,13 +57,13 @@ namespace ItemUtils.API.Modifiers
             }
             //armor.AmmoLimits = newLimits;
 
-            int newHelmetEfficacy = (int)(armor.HelmetEfficacy * HelmetProtectionPercentMulti);
+            int newHelmetEfficacy = (int)(armor.HelmetEfficacy * HelmetProtectionMulti);
             if (newHelmetEfficacy > 100) 
                armor.HelmetEfficacy = 100;
             else 
                 armor.HelmetEfficacy = newHelmetEfficacy;
 
-            int newBodyEfficacy = (int)(armor.VestEfficacy * BodyProtectionPercentMulti);
+            int newBodyEfficacy = (int)(armor.VestEfficacy * BodyProtectionMulti);
             if (newBodyEfficacy > 100) 
                 armor.VestEfficacy = 100;
             else 

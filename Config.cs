@@ -56,7 +56,7 @@ namespace ItemUtils
                         AmmoType.Nato9, 1.2f
                     }
                 },
-                BodyProtectionPercentMulti = 1.2f,
+                BodyProtectionMulti = 1.2f,
             },
 
             ["ModifiedPainkillers"] = new ConsumableModifier 
