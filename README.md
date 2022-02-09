@@ -22,10 +22,10 @@ item_utils:
   modified_items: 
     Medkit: health_increaser
     Painkillers: health_increaser
-    None: FlatItem
+    None: flat_item
   item_modifiers:
     health_increaser:
-      exluded_roles: []
+      excluded_roles: []
       scale: 
         x: 1
         y: 1
