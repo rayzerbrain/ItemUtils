@@ -49,7 +49,7 @@ ALL attributes have examples within the default config that comes with the plugi
 NOTE: The deserializer is very picky, for the config to work right you MUST have ALL properties for that item defined, even if you are not changing them.
 The exception to this is if you are only modifying ONE property, as in the example above with the flat_item definition
 
-OTHER NOTE: Many properties require specific pre-defined values, like types of ammo and roles. To find the exact definition of these values, go to #resources in the exiled discord
+OTHER NOTE: Many properties require specific pre-defined values, like the names of types of ammo and roles. To find the exact definition of these values, go to #resources in the exiled discord
 
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|
