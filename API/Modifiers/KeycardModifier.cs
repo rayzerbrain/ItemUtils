@@ -15,7 +15,9 @@ namespace ItemUtils.API.Modifiers
 {
     public class KeycardModifier : ItemModifier
     {
+        //Each needs testing
         public static readonly KeycardPermissions generatorPerm = KeycardPermissions.ArmoryLevelTwo;
+        
         public bool CanBeUsedRemotely { get; set; } = false;
         public List<KeycardPermissions> AddedPermissions { get; set; } = new List<KeycardPermissions>();
         public List<KeycardPermissions> RemovedPermissions { get; set; } = new List<KeycardPermissions>();
@@ -37,6 +39,7 @@ namespace ItemUtils.API.Modifiers
             PlayerHandler.ActivatingWarheadPanel -= OnActivatingWarheadPanel;
             base.UnregisterEvents();
         }
+        
         public void OnInteractingDoor(InteractingDoorEventArgs ev)
         {
             ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions); //ah yes  

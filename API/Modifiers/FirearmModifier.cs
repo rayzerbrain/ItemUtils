@@ -19,11 +19,12 @@ namespace ItemUtils.API.Modifiers
     {
         //gonna include support for modifiable attachments when nao gets his attachment api approved (never)
         //nvm
+
+        //all needs testing
         public bool NeedsAmmo { get; set; } = true;
         public bool NeedsReloading { get; set; } = true;
         public AmmoType AmmoUsed { get; set; } = AmmoType.None;
         
-
         public override void RegisterEvents()
         {
             CustomHandler.ObtainingItem += OnObtainingItem;

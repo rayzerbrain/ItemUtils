@@ -14,9 +14,10 @@ namespace ItemUtils.API.Modifiers
 {
     public class DepletableModifier : ItemModifier
     {
+        //All needs testing
         public float StartingEnergyMulti { get; set; } = 1;
         public bool HasInfiniteUse { get; set; } = false;
-
+        
         public override void RegisterEvents()
         {
             CustomHandler.ObtainingItem += OnObtainingItem;

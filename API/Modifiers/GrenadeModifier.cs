@@ -14,6 +14,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class GrenadeModifier : WeaponModifier
     {
+        // Everything needs testing
         public float EffectDurationMulti { get; set; } = 1;
         public float ThrowTimeMulti { get; set; } = 1;
         public float FuseTimeMulti { get; set; } = 1;

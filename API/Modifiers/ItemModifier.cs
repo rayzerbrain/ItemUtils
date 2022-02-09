@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Item = Exiled.API.Features.Items.Item;
 using MapHandler = Exiled.Events.Handlers.Map;
 using PlayerHandler = Exiled.Events.Handlers.Player;
 
@@ -20,6 +18,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class ItemModifier
     {
+        //all needs testing
         internal ItemType Type;
         //for keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();
@@ -40,11 +39,10 @@ namespace ItemUtils.API.Modifiers
             PlayerHandler.DroppingItem -= OnDroppingItem;
         }
         public void OnWaitingForPlayers() => RegisteredSerials.Clear();
+        //Spawning item event is never called, Needs Fixing
         public void OnSpawningItem(SpawningItemEventArgs ev)
         {
-            Log.Debug("SPAWNIGNI TEIME!");
-
-            Timing.CallDelayed(0.5f, () => 
+            Timing.CallDelayed(0.1f, () => 
             {
                 Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
 
@@ -55,21 +53,20 @@ namespace ItemUtils.API.Modifiers
                 ev.Pickup.Weight *= PickUpTimeMulti;
             });
         }
-        //Possibly in vain
         public void OnDroppingItem(DroppingItemEventArgs ev)
         {
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
-            Timing.CallDelayed(0.5f, () =>
+            Timing.CallDelayed(0.1f, () =>
             {
                 Log.Debug($"Attempting to modify scale of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
                 Pickup pickup = Map.Pickups.First((p) => p.Serial == ev.Item.Serial);
                 pickup.Scale = Scale;
-                pickup.Weight *= PickUpTimeMulti;
+                pickup.Weight *= PickUpTimeMulti; // Needs testing
             });
         }
-
+        // For null checks
         public bool CanModify(Item item, Player plyr) => 
             plyr != null && item != null 
             && CanModify(item.Type, plyr.Role);

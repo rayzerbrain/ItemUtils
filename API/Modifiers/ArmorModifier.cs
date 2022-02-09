@@ -14,6 +14,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class ArmorModifier : ItemModifier
     {
+        //all needs testing
         public Dictionary<AmmoType, float> AmmoLimitMultis { get; set; } = new Dictionary<AmmoType, float>();
         public float HelmetProtectionPercentMulti { get; set; } = 1;
         public float BodyProtectionPercentMulti { get; set; } = 1;

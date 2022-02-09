@@ -10,7 +10,8 @@ using Exiled.API.Enums;
 namespace ItemUtils.API.Modifiers
 {
     public class WeaponModifier : ItemModifier
-    {
+    {        
+        //Needs testing
         public float ScpDamageMulti { get; set; } = 1;
         public float HumanDamageMulti { get; set; } = 1;
         public override void RegisterEvents()
