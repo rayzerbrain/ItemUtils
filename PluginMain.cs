@@ -99,10 +99,10 @@ namespace ItemUtils
         {
             mod  = (ItemModifier)Loader.Deserializer.Deserialize(rawConfig, t);
             string allProps = Loader.Serializer.Serialize(mod);
-            List<string> testProps = GetRawProperties(rawConfig);
+            List<string> configProps = GetRawProperties(rawConfig);
             
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
-            foreach(string prop in testProps)
+            foreach(string prop in configProps)
             {
                 if (!allProps.Contains(prop))
                 {
