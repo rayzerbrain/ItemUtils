@@ -16,7 +16,7 @@ The list of available configuration is listed below
 |debug_mode|Boolean|Determines if debug logs will be shown|
 
 ### Example Config
-```cs
+```yml
 item_utils:
   is_enabled: true
   modified_items: 
@@ -41,15 +41,11 @@ item_utils:
         y: 0.25
         z: 1
 ```
-
+Note how a modifier definition is mapped to the item "None". This ironically represents ALL items, so use this to affect attributes of all items simultaneously.
 ### Modifier information
-ALL attributes have examples within the default config that comes with the plugin
+Most attributes have examples within the default config that comes with the plugin
 
-
-NOTE: The deserializer is very picky, for the config to work right you MUST have ALL properties for that item defined, even if you are not changing them.
-The exception to this is if you are only modifying ONE property, as in the example above with the flat_item definition
-
-OTHER NOTE: Many properties require specific pre-defined values, like the names of types of ammo and roles. To find the exact definition of these values, go to #resources in the exiled discord
+NOTE: Many properties require specific pre-defined values, like the names of types of ammo(AmmoType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord
 
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|
@@ -81,4 +77,4 @@ OTHER NOTE: Many properties require specific pre-defined values, like the names 
 |starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: radio battery cannot exceed 255%)|float|1|
 |has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|
 
-Possibly more coming...
+Possibly more coming soon<sup>TM</sup>...
