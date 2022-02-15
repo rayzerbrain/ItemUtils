@@ -17,15 +17,13 @@ namespace ItemUtils
         private static PluginMain Singleton;
         public static PluginMain Instance => Singleton;
         public override Version Version => new Version(1, 0, 0);
-        public override Version RequiredExiledVersion => new Version(4, 0, 0);
+        public override Version RequiredExiledVersion => new Version(5, 0, 0);
         public override string Author => "rayzer";
         public override string Name => "ItemUtils";
         private List<ItemModifier> loadedModifiers;
         private Harmony hrmny;
         public override void OnEnabled()
         {
-            Exiled.Events.Handlers.Player.InteractingDoor += OnInteractingDoor;
-
             Singleton = this;
             hrmny = new Harmony(Name);
             hrmny.PatchAll();
@@ -35,18 +33,12 @@ namespace ItemUtils
         }
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Player.InteractingDoor -= OnInteractingDoor;
-
             UnloadModifiers();
             hrmny.UnpatchAll();
             hrmny = null;
             //EventHandler = null;
             Singleton = null;
             base.OnDisabled();
-        }
-        public void OnInteractingDoor(InteractingDoorEventArgs ev)
-        {
-            Log.Debug("Permissions for " + ev.Door + ": " + ev.Door.RequiredPermissions.RequiredPermissions);
         }
         //add all the user defined modifiers with their type
         public void LoadModifiers()
@@ -59,7 +51,7 @@ namespace ItemUtils
             {
                 if (!Config.ItemModifiers.TryGetValue(map.Value, out object match))
                 {
-                    Log.Warn($"Missing modifier definition of name {map.Value} for item {map.Key}, skipping...");
+                    Log.Warn((object)($"Missing modifier definition of name {map.Value} for item {map.Key}, skipping..."));
                     continue;
                 }
 
@@ -73,7 +65,7 @@ namespace ItemUtils
                         //if (Loader.Serializer.Serialize(mod).Equals(rawMod))
                         if (TryDeserialize(rawMod, t, out mod))
                         {
-                            Log.Debug($"Loading modifier of type {t} for item {map.Key}", Config.DebugMode);
+                            Log.Debug((object)($"Loading modifier of type {t} for item {map.Key}"), Config.DebugMode);
                             mod.Type = map.Key;
                             mod.RegisterEvents();
                             break;
@@ -82,7 +74,7 @@ namespace ItemUtils
                 }
                 if (mod == null)
                 {
-                    Log.Error($"Your config is not set up properly! Config:\n{map.Value}");
+                    Log.Error((object)($"Your config is not set up properly! THe following config will not be loaded:\n{map.Value}"));
                 }
             }
         }
@@ -118,17 +110,20 @@ namespace ItemUtils
             StringBuilder prop = new StringBuilder();
             List<string> props = new List<string>();
 
-            foreach(string line in lines)
+            prop.AppendLine(lines[0]);
+            for (int i=1; i<lines.Length-1; i++)
             {
-                prop.AppendLine(line);
-
-                if (line[0] != ' ')
+                char c = lines[i][0];
+                if (c != ' ' && c != '-')
                 {
-                    prop.Remove(prop.Length - 1, 1);
+                    // Log.Debug((object)($"Found property: \n{prop}"));
                     props.Add(prop.ToString());
                     prop.Clear();
                 }
+                prop.AppendLine(lines[i]);
             }
+            // Log.Debug($"Final property: \n{prop}");
+            props.Add(prop.ToString());
             return props;
         }
     }
