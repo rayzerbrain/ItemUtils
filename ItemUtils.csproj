@@ -34,8 +34,9 @@
     <Reference Include="0Harmony">
       <HintPath>..\..\..\Downloads\Exiledsa\EXILED\Plugins\dependencies\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Downloads\Exiledsa\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\drive-download-20220212T012144Z-001\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -45,7 +46,8 @@
       <HintPath>..\..\..\Documents\SL Plugins\CommandSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.API, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.API.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\Exiled.API.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Bootstrap, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Bootstrap.dll</HintPath>
@@ -60,10 +62,12 @@
       <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.CustomRoles.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Events, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Events.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\drive-download-20220212T012144Z-001\Exiled.Events.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Loader, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Loader.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\drive-download-20220212T012144Z-001\Exiled.Loader.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Permissions, Version=4.2.2.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>packages\EXILED.4.2.2\lib\net472\Exiled.Permissions.dll</HintPath>

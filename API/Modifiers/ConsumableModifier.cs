@@ -22,13 +22,13 @@ namespace ItemUtils.API.Modifiers
         public override void RegisterEvents()
         {
             PlayerHandler.UsingItem += OnUsingItem;
-            PlayerHandler.ItemUsed += OnItemUsed;
+            PlayerHandler.UsedItem += OnItemUsed;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
         {
             PlayerHandler.UsingItem -= OnUsingItem;
-            PlayerHandler.ItemUsed -= OnItemUsed;
+            PlayerHandler.UsedItem -= OnItemUsed;
             base.UnregisterEvents();
         }
         public void OnUsingItem(UsingItemEventArgs ev)
@@ -47,7 +47,7 @@ namespace ItemUtils.API.Modifiers
 
             if (HpAdded >= 0) 
                 ev.Player.Heal(HpAdded);
-            else ev.Player.Hurt("A needle is stuck in his asophagus.", HpAdded); //Hopefully this reason won't be needed
+            else ev.Player.Hurt(HpAdded); //Hopefully this reason won't be needed
 
             ev.Player.ArtificialHealth += AhpAdded;
             ev.Item.RemainingCooldown *= CooldownMulti;

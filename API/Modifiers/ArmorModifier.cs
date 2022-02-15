@@ -40,14 +40,15 @@ namespace ItemUtils.API.Modifiers
             Armor armor = ev.Item as Armor;
 
             //List<ArmorAmmoLimit> newLimits = new List<ArmorAmmoLimit>(armor.AmmoLimits);
-            for (int i=0; i<armor.AmmoLimits.Count; i++)
+            for (int i=0; i<armor.AmmoLimits.Count(); i++)
             {
-                AmmoType aType = armor.AmmoLimits[i].AmmoType;
+                ArmorAmmoLimit limit = armor.AmmoLimits.ElementAt(i);
+                AmmoType aType = limit.AmmoType;
                 if(AmmoLimitMultis.ContainsKey(aType))
                 {
-                    ArmorAmmoLimit limit = armor.AmmoLimits[i];
-                    limit.Limit = (ushort)(limit.Limit * AmmoLimitMultis[aType]);
-                    armor.AmmoLimits[i] = limit;
+                    ArmorAmmoLimit newLim = armor.AmmoLimits.ElementAt(i);
+                    newLim.Limit = (ushort)(limit.Limit * AmmoLimitMultis[aType]);
+                    armor.AmmoLimits.ToList()[i] = newLim;
                 }
                 /*if (AmmoLimitMultis.ContainsKey(armor.AmmoType))
                 {

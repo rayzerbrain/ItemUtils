@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Exiled.Events.EventArgs;
 using Exiled.API.Extensions;
 using Exiled.API.Enums;
+using Exiled.API.Features.DamageHandlers;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -28,8 +29,8 @@ namespace ItemUtils.API.Modifiers
         {
             ItemType damagingItem = ItemType.None;
 
-            if (ev.Handler.Item != null) 
-                damagingItem = ev.Handler.Item.Type;
+            if (ev.Handler.BaseIs(out FirearmDamageHandler handler)) 
+                damagingItem = handler.Item.Type;
             else
             {
                 switch(ev.Handler.Type)
