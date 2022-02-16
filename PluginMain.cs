@@ -51,7 +51,7 @@ namespace ItemUtils
             {
                 if (!Config.ItemModifiers.TryGetValue(map.Value, out object match))
                 {
-                    Log.Warn((object)($"Missing modifier definition of name {map.Value} for item {map.Key}, skipping..."));
+                    Log.Warn($"Missing modifier definition of name {map.Value} for item {map.Key}, skipping...");
                     continue;
                 }
 
@@ -63,9 +63,10 @@ namespace ItemUtils
                         rawMod = Loader.Serializer.Serialize(match);
                         //mod = (ItemModifier)Loader.Deserializer.Deserialize(rawMod, t);
                         //if (Loader.Serializer.Serialize(mod).Equals(rawMod))
+                        Log.Debug($"Testing config \n{rawMod}\n against type {t}", Config.DebugMode);
                         if (TryDeserialize(rawMod, t, out mod))
                         {
-                            Log.Debug((object)($"Loading modifier of type {t} for item {map.Key}"), Config.DebugMode);
+                            Log.Debug($"Loading modifier of type {t} for item {map.Key}", Config.DebugMode);
                             mod.Type = map.Key;
                             mod.RegisterEvents();
                             break;
@@ -74,7 +75,7 @@ namespace ItemUtils
                 }
                 if (mod == null)
                 {
-                    Log.Error((object)($"Your config is not set up properly! THe following config will not be loaded:\n{map.Value}"));
+                    Log.Error($"Your config is not set up properly! THe following config will not be loaded:\n{map.Value}");
                 }
             }
         }
@@ -94,10 +95,12 @@ namespace ItemUtils
             List<string> configProps = GetRawProperties(rawConfig);
             
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
-            foreach(string prop in configProps)
+            foreach (string prop in configProps)
             {
+                //Log.Debug($"Testing \n{prop}\nAgainst\n{allProps}");
                 if (!allProps.Contains(prop))
                 {
+                    Log.Debug($"{allProps}\n was not type {t} because of property \n{prop}.");
                     mod = null;
                     return false;
                 }
@@ -116,13 +119,12 @@ namespace ItemUtils
                 char c = lines[i][0];
                 if (c != ' ' && c != '-')
                 {
-                    // Log.Debug((object)($"Found property: \n{prop}"));
-                    props.Add(prop.ToString());
+                    prop.Remove(prop.Length - 1, 1);
+                    props.Add(prop.ToString().Trim());
                     prop.Clear();
                 }
                 prop.AppendLine(lines[i]);
             }
-            // Log.Debug($"Final property: \n{prop}");
             props.Add(prop.ToString());
             return props;
         }
