@@ -73,10 +73,7 @@ namespace ItemUtils
                         }
                     }
                 }
-                if (mod == null)
-                {
-                    Log.Error($"Your config is not set up properly! THe following config will not be loaded:\n{map.Value}");
-                }
+                Log.Assert(mod == null, $"Your config is not set up properly! The following config will not be loaded:\n{map.Value}");
             }
         }
         public void UnloadModifiers()
