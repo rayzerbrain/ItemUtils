@@ -18,7 +18,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class ItemModifier
     {
-        //all needs testing
+        //Pickup time needs testing
         internal ItemType Type;
         //for keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();
@@ -70,6 +70,7 @@ namespace ItemUtils.API.Modifiers
         public bool CanModify(Item item, Player plyr) => 
             plyr != null && item != null 
             && CanModify(item.Type, plyr.Role);
+        //For enums only
         public bool CanModify(ItemType iType, RoleType rType) => 
             iType != ItemType.None && (Type == iType || Type == ItemType.None)
             && rType != RoleType.None && !ExcludedRoles.Contains(rType);

@@ -84,7 +84,7 @@ namespace ItemUtils.API.Modifiers
 
             Log.Debug($"Checking permission {perms} against card with perms { card.Base.Permissions}", PluginMain.Instance.Config.DebugMode);
 
-            return card.Base.Permissions.HasFlag(perms);
+            return card.Base.Permissions.HasFlagFast(perms);
         }
         
     }

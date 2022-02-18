@@ -5,7 +5,6 @@ using System.Text;
 using HarmonyLib;
 
 using Exiled.API.Features;
-using Exiled.Events.EventArgs;
 using Exiled.Loader;
 
 using ItemUtils.API.Modifiers;
@@ -27,7 +26,6 @@ namespace ItemUtils
             Singleton = this;
             hrmny = new Harmony(Name);
             hrmny.PatchAll();
-            //EventHandler = new EventHandlers(this);
             LoadModifiers();
             base.OnEnabled();
         }
@@ -36,7 +34,6 @@ namespace ItemUtils
             UnloadModifiers();
             hrmny.UnpatchAll();
             hrmny = null;
-            //EventHandler = null;
             Singleton = null;
             base.OnDisabled();
         }
@@ -63,17 +60,17 @@ namespace ItemUtils
                         rawMod = Loader.Serializer.Serialize(match);
                         //mod = (ItemModifier)Loader.Deserializer.Deserialize(rawMod, t);
                         //if (Loader.Serializer.Serialize(mod).Equals(rawMod))
-                        Log.Debug($"Testing config \n{rawMod}\n against type {t}", Config.DebugMode);
+                        //Log.Debug($"Testing config \n{rawMod}\n against type {t}", Config.DebugMode);
                         if (TryDeserialize(rawMod, t, out mod))
                         {
-                            Log.Debug($"Loading modifier of type {t} for item {map.Key}", Config.DebugMode);
+                            Log.Debug($"Loading modifier of type {t} for item {map.Key} with definition name {map.Value}", Config.DebugMode);
                             mod.Type = map.Key;
                             mod.RegisterEvents();
                             break;
                         }
                     }
                 }
-                Log.Assert(mod == null, $"Your config is not set up properly! The following config will not be loaded:\n{map.Value}");
+                Log.Assert(mod != null, $"Your config is not set up properly! Config:\n{map.Value}");
             }
         }
         public void UnloadModifiers()
@@ -88,16 +85,13 @@ namespace ItemUtils
         public bool TryDeserialize(string rawConfig, Type t, out ItemModifier mod)
         {
             mod  = (ItemModifier)Loader.Deserializer.Deserialize(rawConfig, t);
-            string allProps = Loader.Serializer.Serialize(mod);
-            List<string> configProps = GetRawProperties(rawConfig);
-            
+            string allProps = "\n" + Loader.Serializer.Serialize(mod);
+
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
-            foreach (string prop in configProps)
+            foreach (string prop in GetRawProperties(rawConfig))
             {
-                //Log.Debug($"Testing \n{prop}\nAgainst\n{allProps}");
                 if (!allProps.Contains(prop))
                 {
-                    Log.Debug($"{allProps}\n was not type {t} because of property \n{prop}.");
                     mod = null;
                     return false;
                 }
@@ -116,8 +110,8 @@ namespace ItemUtils
                 char c = lines[i][0];
                 if (c != ' ' && c != '-')
                 {
-                    prop.Remove(prop.Length - 1, 1);
-                    props.Add(prop.ToString().Trim());
+                    prop.Insert(0, "\n");
+                    props.Add(prop.ToString());
                     prop.Clear();
                 }
                 prop.AppendLine(lines[i]);

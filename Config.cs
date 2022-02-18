@@ -29,17 +29,29 @@ namespace ItemUtils
             [ItemType.Coin] = "BigItem",
             [ItemType.GunCrossvec] = "ModifiedCrossvec",
             [ItemType.GrenadeFlash] = "ModifiedExplosive",
+            [ItemType.Radio] = "BetterRadio"
         };
 
         //blame yaml strict types not me
         [Description("Modifier descriptions for items")]
         public Dictionary<string, object> ItemModifiers { get; set; } = new Dictionary<string, object>()
         {
-            
+            ["BetterRadio"] = new DepletableModifier
+            {
+                StartingEnergyMulti = 1.2f,
+                ExcludedRoles = new List<RoleType>()
+                {
+                    RoleType.ChaosConscript,
+                    RoleType.ChaosRifleman,
+                    RoleType.ChaosRepressor,
+                    RoleType.ChaosMarauder,
+                },
+            },
+
             ["BigItem"] = new ItemModifier
             {
                 Scale = new Vector3(2, 2, 2),
-                PickUpTimeMulti = 1.2f,
+                PickUpTimeMulti = 3f,
             },
             
             ["ModifiedFlashlight"] = new ItemModifier
@@ -87,7 +99,7 @@ namespace ItemUtils
             
             ["ModifiedExplosive"] = new GrenadeModifier
             {
-                FuseTimeMulti = 1.0f,
+                FuseTimeMulti = 0.8f,
                 ThrowTimeMulti = 1.0f,
                 ScpDamageMulti = 1.1f,
             },
