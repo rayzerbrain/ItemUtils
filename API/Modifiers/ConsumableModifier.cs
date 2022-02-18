@@ -47,7 +47,8 @@ namespace ItemUtils.API.Modifiers
 
             if (HpAdded >= 0) 
                 ev.Player.Heal(HpAdded);
-            else ev.Player.Hurt(HpAdded); //Hopefully this reason won't be needed
+            else 
+                ev.Player.Hurt(HpAdded); //Hopefully this reason won't be needed
 
             ev.Player.ArtificialHealth += AhpAdded;
             ev.Item.RemainingCooldown *= CooldownMulti;

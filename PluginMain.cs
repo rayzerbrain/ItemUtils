@@ -48,7 +48,7 @@ namespace ItemUtils
             {
                 if (!Config.ItemModifiers.TryGetValue(map.Value, out object match))
                 {
-                    Log.Warn($"Missing modifier definition of name {map.Value} for item {map.Key}, skipping...");
+                    Log.Warn($"No modifier of name {map.Value} found for item {map.Key}, skipping...");
                     continue;
                 }
 
