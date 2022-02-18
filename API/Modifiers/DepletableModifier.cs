@@ -37,13 +37,9 @@ namespace ItemUtils.API.Modifiers
                 return;
 
             if (ev.Item is MicroHid micro)
-            {
                 micro.Energy *= StartingEnergyMulti;
-            }
             else if (ev.Item is RadioItem radio)
-            {
                 radio.BatteryLevel = (byte)(StartingEnergyMulti * radio.BatteryLevel);
-            }
         }
         public void OnUsingRadioBattery(UsingRadioBatteryEventArgs ev)
         {
