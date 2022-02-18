@@ -17,12 +17,10 @@ namespace ItemUtils.API.Modifiers
 {
     public class FirearmModifier : WeaponModifier
     {
-        //gonna include support for modifiable attachments when nao gets his attachment api approved (never)
-        //nvm
-
         //all needs testing
         public bool NeedsAmmo { get; set; } = true;
         public bool NeedsReloading { get; set; } = true;
+        public bool CanDisarm { get; set; } = true;
         public AmmoType AmmoUsed { get; set; } = AmmoType.None;
         
         public override void RegisterEvents()
@@ -30,6 +28,7 @@ namespace ItemUtils.API.Modifiers
             CustomHandler.ObtainingItem += OnObtainingItem;
             PlayerHandler.ReloadingWeapon += OnReloading;
             PlayerHandler.Shooting += OnShooting;
+            PlayerHandler.Handcuffing += OnHandcuffing;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
@@ -37,6 +36,7 @@ namespace ItemUtils.API.Modifiers
             CustomHandler.ObtainingItem -= OnObtainingItem;
             PlayerHandler.ReloadingWeapon -= OnReloading;
             PlayerHandler.Shooting -= OnShooting;
+            PlayerHandler.Handcuffing -= OnHandcuffing;
             base.UnregisterEvents();
         }
         public void OnShooting(ShootingEventArgs ev)
@@ -62,11 +62,19 @@ namespace ItemUtils.API.Modifiers
                 bulletsToLoad = bulletsAvailable;
 
             ev.Firearm.Ammo += (byte)bulletsToLoad;
+            ev.Player.AddAmmo(ev.Firearm.AmmoType, bulletsToLoad);
             ev.Player.Ammo[AmmoUsed.GetItemType()] -= bulletsToLoad;
         }
         public void OnObtainingItem(ObtainingItemEventArgs ev)
         {
             Log.Debug("PATCHING SUCCESS!");
+        }
+        public void OnHandcuffing(HandcuffingEventArgs ev)
+        {
+            if (CanModify(ev.Cuffer.CurrentItem, ev.Cuffer))
+                return;
+
+            ev.IsAllowed = CanDisarm;
         }
     }
 }

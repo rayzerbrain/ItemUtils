@@ -19,6 +19,7 @@ namespace ItemUtils.API.Modifiers
     public class ItemModifier
     {
         //Pickup time needs testing
+        // The type of item the modifier will affect
         internal ItemType Type;
         //for keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();

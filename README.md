@@ -50,7 +50,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|
 |--------------------|-----------|-----------|---------|-------------|
-|excluded_roles|All|Prevents modifications from taking effect for that role|List<RoleType>|[ ]|
+|excluded_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|
 |pickup_time_multi|All|Affects how long it takes for the item to be picked up|float|1|
 |scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|
@@ -66,6 +66,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|
 |needs_reloading|Guns|Determines whether the gun needs to be reloaded|Boolean|true|
 |ammo_used|Guns|Determines the type of ammo the gun uses (None for regular ammo)|AmmoType|None|
+|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|
 |effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|
 |throw_time_multi|Grenades|Affects how long it takes to throw a grenade|float|1|
 |fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|
