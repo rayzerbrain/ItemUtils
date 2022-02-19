@@ -105,6 +105,7 @@
     <Compile Include="API\Modifiers\ItemModifier.cs" />
     <Compile Include="API\Modifiers\KeycardModifier.cs" />
     <Compile Include="API\Modifiers\WeaponModifier.cs" />
+    <Compile Include="API\SubtypeDeserializer.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Events\CustomHandler.cs" />
     <Compile Include="Events\Patches\ObtainingItem.cs" />
