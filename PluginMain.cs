@@ -43,7 +43,7 @@ namespace ItemUtils
         public void LoadModifiers()
         {
             loadedModifiers = new List<ItemModifier>();
-            SubtypeDeserializer sd = new SubtypeDeserializer<ItemModifier>();
+            SubtypeDeserializer<ItemModifier> sd = new SubtypeDeserializer<ItemModifier>();
             List<Type> types = new List<Type>(Assembly.GetTypes());
 
             foreach (KeyValuePair<ItemType, string> map in Config.ModifiedItems)
