@@ -66,7 +66,7 @@ namespace ItemUtils.API.Modifiers
             {
                 foreach (Keycard card in plyr.Items)
                 {
-                    if (CanModify(card, plyr) && CheckPermissions(card, perms))
+                    if (CheckPermissions(card, perms) && CanModify(card, plyr))
                         return true;
                 }
                 return false;
@@ -76,15 +76,20 @@ namespace ItemUtils.API.Modifiers
         }
         public bool CheckPermissions(Keycard card, KeycardPermissions perms)
         {
-            if (card == null || card.Type != Type)
-                return false;
+            KeycardPermissions newPerms = perms;
 
-            foreach (KeycardPermissions perm in AddedPermissions) { card.Base.Permissions += (ushort)perm; }
-            foreach (KeycardPermissions perm in AddedPermissions) { card.Base.Permissions -= (ushort)perm; }
+            foreach (KeycardPermissions perm in AddedPermissions) 
+            { 
+                newPerms += (ushort)perm; 
+            }
+            foreach (KeycardPermissions perm in AddedPermissions) 
+            {
+                newPerms -= (ushort)perm;
+            }
 
-            Log.Debug($"Checking permission {perms} against card with perms { card.Base.Permissions}", PluginMain.Instance.Config.DebugMode);
+            Log.Debug($"Checking permission {perms} against card with perms {newPerms}", PluginMain.Instance.Config.DebugMode);
 
-            return card.Base.Permissions.HasFlagFast(perms);
+            return newPerms.HasFlagFast(perms);
         }
         
     }

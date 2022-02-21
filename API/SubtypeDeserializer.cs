@@ -29,7 +29,7 @@ namespace ItemUtils.API
                     }
                 }
             }
-            Log.Debug($"Smallest substype was {baseObj.GetType()}");
+            Log.Debug($"Smallest substype was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
             return baseObj;
         }
 
@@ -43,12 +43,11 @@ namespace ItemUtils.API
             {
                 if (!allProps.Contains(prop))
                 {
-                    Log.Debug($"{allProps} was not {subType} because of {prop}", PluginMain.Instance.Config.DebugMode);
+                    //Log.Debug($"{allProps} was not {subType} because of {prop}", PluginMain.Instance.Config.DebugMode);
                     mod = null;
                     return false;
                 }
             }
-            Log.Debug("SUCCESSSSSSSSSSSSSSSSSSSSSSSS");
             return true;
         }
         private List<string> GetRawProperties(string rawConfig)

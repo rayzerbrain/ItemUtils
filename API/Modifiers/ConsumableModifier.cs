@@ -2,12 +2,14 @@
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using System;
+using System.Linq;
 using Radio = Exiled.API.Features.Items.Radio;
 using PlayerHandler = Exiled.Events.Handlers.Player;
 using System.Collections.Generic;
 using Exiled.API.Enums;
 using ItemUtils.Events.EventArgs;
 using ItemUtils.Events;
+using PlayerStatsSystem;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -35,11 +37,15 @@ namespace ItemUtils.API.Modifiers
         {
             if (CanModify(ev.Item, ev.Player))
             {
+                Log.Debug("Modify check passed for UsingItem", PluginMain.Instance.Config.DebugMode);
                 ev.Item.UseTime *= UseTimeMulti;
+                ev.Item.RemainingCooldown *= CooldownMulti;
             }
         }
         public void OnItemUsed(UsedItemEventArgs ev)
         {
+            Log.Debug($"Chcecking Item of type {ev.Item.Type} for player {ev.Player}");
+
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
@@ -50,8 +56,8 @@ namespace ItemUtils.API.Modifiers
             else 
                 ev.Player.Hurt(HpAdded); //Hopefully this reason won't be needed
 
-            ev.Player.ArtificialHealth += AhpAdded;
-            ev.Item.RemainingCooldown *= CooldownMulti;
+            if (AhpAdded > 0 || ev.Player.ActiveArtificialHealthProcesses.Any())
+                ev.Player.ArtificialHealth += AhpAdded;
 
             int rand = UnityEngine.Random.Range(0, 99);
             foreach (ConfigurableEffect effect in Effects)

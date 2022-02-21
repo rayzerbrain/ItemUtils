@@ -45,10 +45,10 @@ namespace ItemUtils.API.Modifiers
         {
             Timing.CallDelayed(0.1f, () => 
             {
-                Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
-
                 if (ev.Pickup.Type != Type)
                     return;
+
+                Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
 
                 ev.Pickup.Scale = Scale;
                 ev.Pickup.Weight *= PickUpTimeMulti;

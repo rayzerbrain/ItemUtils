@@ -43,7 +43,7 @@ namespace ItemUtils
         public void LoadModifiers()
         {
             loadedModifiers = new List<ItemModifier>();
-            sd = new SubtypeDeserializer<ItemModifier>();
+            SubtypeDeserializer sd = new SubtypeDeserializer<ItemModifier>();
             List<Type> types = new List<Type>(Assembly.GetTypes());
 
             foreach (KeyValuePair<ItemType, string> map in Config.ModifiedItems)
@@ -56,14 +56,17 @@ namespace ItemUtils
 
                 ItemModifier mod = sd.FindSmallestSubtype(Loader.Serializer.Serialize(match), types);
                 Log.Assert(mod != null, $"Your config is not set up properly! Config:\n{map.Value}");
+
+                mod.Type = map.Key;
+                mod.RegisterEvents();
                 loadedModifiers.Add(mod);
             }
         }
         public void UnloadModifiers()
         {
-            foreach (ItemModifier modifier in loadedModifiers)
+            foreach (ItemModifier mod in loadedModifiers)
             {
-                modifier.UnregisterEvents();
+                mod.UnregisterEvents();
             }
             loadedModifiers = null;
         }

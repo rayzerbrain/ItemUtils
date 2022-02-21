@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RadioItem = Exiled.API.Features.Items.Radio;
 using PlayerHandler = Exiled.Events.Handlers.Player;
+using Exiled.API.Features;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -36,6 +37,7 @@ namespace ItemUtils.API.Modifiers
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
+            Log.Debug($"Changing battery of item {ev.Item.Type}");
             if (ev.Item is MicroHid micro)
                 micro.Energy *= StartingEnergyMulti;
             else if (ev.Item is RadioItem radio)
