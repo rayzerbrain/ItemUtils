@@ -21,7 +21,6 @@ namespace ItemUtils
         public override string Author => "rayzer";
         public override string Name => "ItemUtils";
         private List<ItemModifier> loadedModifiers;
-        private SubtypeDeserializer<ItemModifier> sd;
         private Harmony hrmny;
         public override void OnEnabled()
         {

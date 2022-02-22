@@ -16,7 +16,6 @@ namespace ItemUtils.API.Modifiers
     public class KeycardModifier : ItemModifier
     {
         //Each needs testing
-        public static readonly KeycardPermissions generatorPerm = KeycardPermissions.ArmoryLevelTwo;
         
         public bool CanBeUsedRemotely { get; set; } = false;
         public List<KeycardPermissions> AddedPermissions { get; set; } = new List<KeycardPermissions>();
@@ -40,51 +39,48 @@ namespace ItemUtils.API.Modifiers
             base.UnregisterEvents();
         }
         
-        public void OnInteractingDoor(InteractingDoorEventArgs ev)
+        public void OnInteractingDoor(InteractingDoorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions);
+        public void OnUnlockingGenerator(UnlockingGeneratorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.ArmoryLevelTwo);
+        public void OnInteractingLocker(InteractingLockerEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions);
+        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) 
         {
-            ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions); //ah yes  
-        }
-        public void OnUnlockingGenerator(UnlockingGeneratorEventArgs ev)
-        {
-            ev.IsAllowed = CheckPermissions(ev.Player, generatorPerm);
-        }
-        public void OnInteractingLocker(InteractingLockerEventArgs ev)
-        {
-            ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions);
-        }
-        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev)
-        {
-            ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead);
+            Log.Debug("EVENT CALLEDDEDD!");
+            Log.Debug($"IS allowed? {ev.IsAllowed}");
+            //throw new Exception();
+            //ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
         }
 
         public bool CheckPermissions(Player plyr, KeycardPermissions perms)
         {
-            if (ExcludedRoles.Contains(plyr.Role)) return false;
             if (perms == KeycardPermissions.None) return true;
 
             if (CanBeUsedRemotely)
             {
-                foreach (Keycard card in plyr.Items)
+                foreach (Keycard _card in plyr.Items)
                 {
-                    if (CheckPermissions(card, perms) && CanModify(card, plyr))
+                    if (CheckPermissions(_card, perms))
                         return true;
                 }
                 return false;
             }
             
-            return CanModify(plyr.CurrentItem, plyr) && CheckPermissions((Keycard)plyr.CurrentItem, perms);
+            return plyr.CurrentItem is Keycard card && CheckPermissions(card, perms);
         }
         public bool CheckPermissions(Keycard card, KeycardPermissions perms)
         {
-            KeycardPermissions newPerms = perms;
+            KeycardPermissions newPerms = card.Base.Permissions;
 
-            foreach (KeycardPermissions perm in AddedPermissions) 
-            { 
-                newPerms += (ushort)perm; 
-            }
-            foreach (KeycardPermissions perm in AddedPermissions) 
+            if (CanModify(card.Type, card.Owner.Role.Type))
             {
-                newPerms -= (ushort)perm;
+                foreach (KeycardPermissions perm in AddedPermissions)
+                {
+                    Log.Debug("ADDING PERM " + perm);
+                    newPerms += (ushort)perm;
+                }
+                foreach (KeycardPermissions perm in RemovedPermissions)
+                {
+                    newPerms -= (ushort)perm;
+                }
             }
 
             Log.Debug($"Checking permission {perms} against card with perms {newPerms}", PluginMain.Instance.Config.DebugMode);

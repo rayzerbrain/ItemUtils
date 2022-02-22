@@ -18,7 +18,7 @@ namespace ItemUtils.API.Modifiers
         public float UseTimeMulti { get; set; } = 1;
         public float CooldownMulti { get; set; } = 1;
         public float HpAdded { get; set; } = 0; //tested
-        public float AhpAdded { get; set; } = 0;
+        public float AhpAdded { get; set; } = 0; //tested
         public List<ConfigurableEffect> Effects { get; set; } = new List<ConfigurableEffect>();
 
         public override void RegisterEvents()
