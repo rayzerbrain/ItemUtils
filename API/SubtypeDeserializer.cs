@@ -11,12 +11,13 @@ namespace ItemUtils.API
     //T is the base class
     public class SubtypeDeserializer<TBase> where TBase : class
     {
-        // Finds highest clas in the hierarchy(T being highest) that retains all properties from the config
-        public TBase FindSmallestSubtype(string rawConfig, List<Type> types)
+        // Finds highest clas in the hierarchy(TBase being highest) that retains all properties from the config
+        // rawConfig represents a single object, with types containing the possible subtypes
+        public TBase FindValidSubtype(string rawConfig, List<Type> types)
         {
             TBase baseObj = null;
 
-            types.RemoveAll((t) => !t.IsSubclassOf(typeof(TBase)) && !t.Equals(typeof(TBase)));
+            types.RemoveAll((t) => !(t.IsSubclassOf(typeof(TBase)) || t.Equals(typeof(TBase)) ));
             
             foreach(Type t in types)
             {
@@ -25,18 +26,19 @@ namespace ItemUtils.API
                     if (baseObj == null || baseObj.GetType().IsSubclassOf(t))
                     {
                         baseObj = newObj;
-                        Log.Debug($"Deserialized object type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
+                        Log.Debug($"\tDeserialized object type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
                     }
                 }
             }
-            Log.Debug($"Smallest substype was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
+            Log.Assert(baseObj != null, $"Your config is not set up properly! Config: \n{rawConfig}");
+            Log.Debug($"Highest valid type was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
             return baseObj;
         }
 
-        private bool TryDeserialize(string rawConfig, Type subType, out TBase mod)
+        private bool TryDeserialize(string rawConfig, Type t, out TBase obj)
         {
-            mod = (TBase)Loader.Deserializer.Deserialize(rawConfig, subType);
-            string allProps = Loader.Serializer.Serialize(mod) + "\n";
+            obj = (TBase)Loader.Deserializer.Deserialize(rawConfig, t);
+            string allProps = Loader.Serializer.Serialize(obj) + "\n";
 
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
             foreach (string prop in GetRawProperties(rawConfig))
@@ -44,7 +46,7 @@ namespace ItemUtils.API
                 if (!allProps.Contains(prop))
                 {
                     //Log.Debug($"{allProps} was not {subType} because of {prop}", PluginMain.Instance.Config.DebugMode);
-                    mod = null;
+                    obj = null;
                     return false;
                 }
             }

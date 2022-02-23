@@ -17,16 +17,15 @@ namespace ItemUtils.API.Modifiers
 {
     public class FirearmModifier : WeaponModifier
     {
+        //attachement modification support soon (tm)
         //all needs testing
         public bool NeedsAmmo { get; set; } = true;
         public bool NeedsReloading { get; set; } = true;
         public bool CanDisarm { get; set; } = true;
-        public AmmoType AmmoUsed { get; set; } = AmmoType.None;
         
         public override void RegisterEvents()
         {
             CustomHandler.ObtainingItem += OnObtainingItem;
-            PlayerHandler.ReloadingWeapon += OnReloading;
             PlayerHandler.Shooting += OnShooting;
             PlayerHandler.Handcuffing += OnHandcuffing;
             base.RegisterEvents();
@@ -34,7 +33,6 @@ namespace ItemUtils.API.Modifiers
         public override void UnregisterEvents()
         {
             CustomHandler.ObtainingItem -= OnObtainingItem;
-            PlayerHandler.ReloadingWeapon -= OnReloading;
             PlayerHandler.Shooting -= OnShooting;
             PlayerHandler.Handcuffing -= OnHandcuffing;
             base.UnregisterEvents();
@@ -48,22 +46,8 @@ namespace ItemUtils.API.Modifiers
             else if (!NeedsReloading)
             {
                 gun.Ammo++;
-                ev.Shooter.Ammo[AmmoUsed.GetItemType()]--;
+                ev.Shooter.Ammo[gun.AmmoType.GetItemType()]--;
             }
-        }
-        public void OnReloading(ReloadingWeaponEventArgs ev)
-        {
-            if (!ev.IsAllowed || !CanModify(ev.Firearm, ev.Player) || AmmoUsed == AmmoType.None) 
-                return;
-
-            ushort bulletsToLoad = (ushort)(ev.Firearm.MaxAmmo - ev.Firearm.Ammo);
-            ushort bulletsAvailable = ev.Player.GetAmmo(AmmoUsed);
-            if (bulletsAvailable < bulletsToLoad)
-                bulletsToLoad = bulletsAvailable;
-
-            ev.Firearm.Ammo += (byte)bulletsToLoad;
-            ev.Player.AddAmmo(ev.Firearm.AmmoType, bulletsToLoad);
-            ev.Player.Ammo[AmmoUsed.GetItemType()] -= bulletsToLoad;
         }
         public void OnObtainingItem(ObtainingItemEventArgs ev)
         {
@@ -71,7 +55,7 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnHandcuffing(HandcuffingEventArgs ev)
         {
-            if (CanModify(ev.Cuffer.CurrentItem, ev.Cuffer))
+            if (!CanModify(ev.Cuffer.CurrentItem, ev.Cuffer))
                 return;
 
             ev.IsAllowed = CanDisarm;

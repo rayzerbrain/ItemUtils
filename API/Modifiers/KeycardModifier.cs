@@ -15,7 +15,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class KeycardModifier : ItemModifier
     {
-        //Each needs testing
+        //Only need to test remote cards
         
         public bool CanBeUsedRemotely { get; set; } = false;
         public List<KeycardPermissions> AddedPermissions { get; set; } = new List<KeycardPermissions>();
@@ -47,7 +47,7 @@ namespace ItemUtils.API.Modifiers
             Log.Debug("EVENT CALLEDDEDD!");
             Log.Debug($"IS allowed? {ev.IsAllowed}");
             //throw new Exception();
-            //ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
+            ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
         }
 
         public bool CheckPermissions(Player plyr, KeycardPermissions perms)

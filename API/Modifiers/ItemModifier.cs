@@ -5,7 +5,7 @@ using System.Text;
 using MapHandler = Exiled.Events.Handlers.Map;
 using PlayerHandler = Exiled.Events.Handlers.Player;
 
-using Server = Exiled.Events.Handlers.Server;
+using ServerHandler = Exiled.Events.Handlers.Server;
 using MEC;
 using Exiled.API.Features.Items;
 using Exiled.API.Extensions;
@@ -18,7 +18,8 @@ namespace ItemUtils.API.Modifiers
 {
     public class ItemModifier
     {
-        //Pickup time needs testing
+        //Only pick up time needs testing
+
         // The type of item the modifier will affect
         internal ItemType Type;
         //for keeping track of one-time modifications
@@ -29,13 +30,13 @@ namespace ItemUtils.API.Modifiers
 
         public virtual void RegisterEvents()
         {
-            Server.WaitingForPlayers += OnWaitingForPlayers;
+            ServerHandler.WaitingForPlayers += OnWaitingForPlayers;
             MapHandler.SpawningItem += OnSpawningItem;
             PlayerHandler.DroppingItem += OnDroppingItem;
         }
         public virtual void UnregisterEvents()
         {
-            Server.WaitingForPlayers -= OnWaitingForPlayers;
+            ServerHandler.WaitingForPlayers -= OnWaitingForPlayers;
             MapHandler.SpawningItem -= OnSpawningItem;
             PlayerHandler.DroppingItem -= OnDroppingItem;
         }
