@@ -99,8 +99,8 @@ namespace ItemUtils
             
             ["ModifiedExplosive"] = new GrenadeModifier
             {
-                FuseTimeMulti = 0.8M,
-                ThrowTimeMulti = 1.0M,
+                FuseTimeMulti = 0.8f,
+                ThrowTimeMulti = 1.0f,
                 ScpDamageMulti = 1.1f,
             },
         };
