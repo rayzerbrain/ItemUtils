@@ -41,8 +41,9 @@ namespace ItemUtils.API
             string allProps = Loader.Serializer.Serialize(obj) + "\n";
 
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
-            foreach (string prop in GetRawProperties(rawConfig))
+            foreach (string line in rawConfig.Split('\n'))
             {
+                string prop = "\n" + line.Substring(0, line.IndexOf(':'));
                 if (!allProps.Contains(prop))
                 {
                     Log.Debug($"{allProps} was not {t} because of {prop}", PluginMain.Instance.Config.DebugMode);
