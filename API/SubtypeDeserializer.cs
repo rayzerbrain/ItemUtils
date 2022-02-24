@@ -45,7 +45,7 @@ namespace ItemUtils.API
             {
                 if (!allProps.Contains(prop))
                 {
-                    //Log.Debug($"{allProps} was not {subType} because of {prop}", PluginMain.Instance.Config.DebugMode);
+                    Log.Debug($"{allProps} was not {t} because of {prop}", PluginMain.Instance.Config.DebugMode);
                     obj = null;
                     return false;
                 }

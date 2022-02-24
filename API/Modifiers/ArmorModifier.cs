@@ -1,5 +1,4 @@
 ﻿using Exiled.API.Features.Items;
-using Exiled.API.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Extensions;
 using ItemUtils.Events.EventArgs;
 using ItemUtils.Events;
+using static InventorySystem.Items.Armor.BodyArmor;
 
 namespace ItemUtils.API.Modifiers
 {
     public class ArmorModifier : ItemModifier
     {
-        //all needs testing
+        //ammo limits work
         public Dictionary<AmmoType, float> AmmoLimitMultis { get; set; } = new Dictionary<AmmoType, float>();
         public float HelmetProtectionMulti { get; set; } = 1;
         public float BodyProtectionMulti { get; set; } = 1;
@@ -35,26 +36,22 @@ namespace ItemUtils.API.Modifiers
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
-            Log.Debug($"Successful modification of item {ev.Item.Type}");
+            Log.Debug($"Successful modification of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
 
             Armor armor = ev.Item as Armor;
 
             //List<ArmorAmmoLimit> newLimits = new List<ArmorAmmoLimit>(armor.AmmoLimits);
-            for (int i=0; i<armor.AmmoLimits.Count(); i++)
+            for (int i=0; i<armor.Base.AmmoLimits.Length; i++)
             {
-                ArmorAmmoLimit limit = armor.AmmoLimits.ElementAt(i);
-                AmmoType aType = limit.AmmoType;
+                ArmorAmmoLimit limit = armor.Base.AmmoLimits[i];
+                AmmoType aType = limit.AmmoType.GetAmmoType();
+
                 if(AmmoLimitMultis.ContainsKey(aType))
                 {
-                    ArmorAmmoLimit newLim = armor.AmmoLimits.ElementAt(i);
+                    ArmorAmmoLimit newLim = limit;
                     newLim.Limit = (ushort)(limit.Limit * AmmoLimitMultis[aType]);
-                    armor.AmmoLimits.ToList()[i] = newLim;
+                    armor.Base.AmmoLimits[i] = newLim;
                 }
-                /*if (AmmoLimitMultis.ContainsKey(armor.AmmoType))
-                {
-                    ushort newMax = (ushort)(ammoLimit.Limit * AmmoLimitMultis[ammoLimit.AmmoType]);
-                    newLimits.Add(new ArmorAmmoLimit(ammoLimit.AmmoType, newMax));
-                }*/
             }
             //armor.AmmoLimits = newLimits;
 
@@ -72,7 +69,7 @@ namespace ItemUtils.API.Modifiers
 
             if (StaminaUseMulti >= 1 && StaminaUseMulti <= 2) 
                 armor.StaminaUseMultiplier = StaminaUseMulti;
-            else Log.Warn("Armor stamina use multiplier is an invalid number. Please change it to be between 1 and 2 for it to work");
+            else Log.Warn("Armor stamina use multiplier is an invalid number. Please change it to be between 1 and 2 for it to work correctly.");
         }
         
     }

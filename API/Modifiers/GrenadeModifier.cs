@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CustomPlayerEffects;
 using UnityEngine;
+using Exiled.API.Features;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -32,6 +33,11 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnThrowingItem(ThrowingItemEventArgs ev)
         {
+            if (!CanModify(ev.Item, ev.Player))
+                return;
+
+            Log.Debug("Item being throen!", PluginMain.Instance.Config.DebugMode);
+
             Throwable item = ev.Item;
             item.PinPullTime *= ThrowTimeMulti;
 

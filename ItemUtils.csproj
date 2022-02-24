@@ -34,13 +34,13 @@
     <Reference Include="0Harmony">
       <HintPath>..\..\..\Downloads\Exiledsa\EXILED\Plugins\dependencies\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Downloads\drive-download-20220212T012144Z-001\Assembly-CSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Documents\SL Plugins\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-Publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Documents\SL Plugins\Assembly-CSharp-Publicized.dll</HintPath>
     </Reference>
     <Reference Include="CommandSystem.Core">
       <HintPath>..\..\..\Documents\SL Plugins\CommandSystem.Core.dll</HintPath>
@@ -110,6 +110,7 @@
     <Compile Include="Events\CustomHandler.cs" />
     <Compile Include="Events\Patches\ObtainingItem.cs" />
     <Compile Include="Events\EventArgs\ObtainingItemEventArgs.cs" />
+    <Compile Include="Events\Patches\ThrowingTest.cs" />
     <Compile Include="PluginMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
