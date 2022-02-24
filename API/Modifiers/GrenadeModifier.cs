@@ -16,10 +16,10 @@ namespace ItemUtils.API.Modifiers
     public class GrenadeModifier : WeaponModifier
     {
         // Everything needs testing
-        public float EffectDurationMulti { get; set; } = 1;
-        public float ThrowTimeMulti { get; set; } = 1;
-        public float FuseTimeMulti { get; set; } = 1; //works
-        public float AoeMulti { get; set; } = 1;
+        public decimal EffectDurationMulti { get; set; } = 1;
+        public decimal ThrowTimeMulti { get; set; } = 1;
+        public decimal FuseTimeMulti { get; set; } = 1; //works
+        public decimal AoeMulti { get; set; } = 1;
 
         public override void RegisterEvents()
         {
@@ -39,20 +39,20 @@ namespace ItemUtils.API.Modifiers
             Log.Debug("Item being throen!", PluginMain.Instance.Config.DebugMode);
 
             Throwable item = ev.Item;
-            item.PinPullTime *= ThrowTimeMulti;
+            item.PinPullTime *= (float)ThrowTimeMulti;
 
             if(ev.Item is ExplosiveGrenade gren)
             {
-                gren.BurnDuration *= EffectDurationMulti;
-                gren.ConcussDuration *= EffectDurationMulti;
-                gren.DeafenDuration *= EffectDurationMulti;
-                gren.FuseTime *= FuseTimeMulti;
-                gren.MaxRadius *= AoeMulti;
+                gren.BurnDuration *= (float)EffectDurationMulti;
+                gren.ConcussDuration *= (float)EffectDurationMulti;
+                gren.DeafenDuration *= (float)EffectDurationMulti;
+                gren.FuseTime *= (float)FuseTimeMulti;
+                gren.MaxRadius *= (float)AoeMulti;
             }
             else if (ev.Item is FlashGrenade flash)
             {
-                flash.FuseTime *= FuseTimeMulti;
-                flash.SurfaceDistanceIntensifier *= AoeMulti;
+                flash.FuseTime *= (float)FuseTimeMulti;
+                flash.SurfaceDistanceIntensifier *= (float)AoeMulti;
             }
         }
         
