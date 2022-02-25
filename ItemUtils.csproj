@@ -110,7 +110,6 @@
     <Compile Include="Events\CustomHandler.cs" />
     <Compile Include="Events\Patches\ObtainingItem.cs" />
     <Compile Include="Events\EventArgs\ObtainingItemEventArgs.cs" />
-    <Compile Include="Events\Patches\ThrowingTest.cs" />
     <Compile Include="PluginMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

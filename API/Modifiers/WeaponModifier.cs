@@ -29,7 +29,7 @@ namespace ItemUtils.API.Modifiers
         {
             ItemType damagingItem = ItemType.None;
 
-            if (ev.Handler == null)
+            if (ev == null)
                 return;
 
             if (ev.Handler.BaseIs(out FirearmDamageHandler handler)) 

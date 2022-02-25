@@ -20,9 +20,11 @@ namespace ItemUtils.API
             types.RemoveAll((t) => !t.IsSubclassOf(typeof(TBase)));
             types.Add(typeof(TBase));
 
-            foreach(Type t in types)
+            Log.Debug($"Checking deserialization for config: \n{rawConfig}", PluginMain.Instance.Config.DebugMode);
+
+            foreach (Type t in types)
             {
-                Log.Debug($"Checking deserialization of type {t} for config: \n{rawConfig}", PluginMain.Instance.Config.DebugMode);
+                
                 if (TryDeserialize(rawConfig, t, out TBase newObj))
                 {
                     if (baseObj == null || baseObj.GetType().IsSubclassOf(t))
@@ -50,7 +52,7 @@ namespace ItemUtils.API
                 string prop = "\n" + line.Substring(0, line.IndexOf(':')+1);
                 if (!allProps.Contains(prop))
                 {
-                    Log.Debug($"Object was not {t} because of {prop}", PluginMain.Instance.Config.DebugMode);
+                    Log.Debug($"Object was not {t} because of{prop}", PluginMain.Instance.Config.DebugMode);
                     obj = null;
                     return false;
                 }
