@@ -15,7 +15,7 @@ namespace ItemUtils.API.Modifiers
 {
     public class GrenadeModifier : WeaponModifier
     {
-        // Everything needs testing
+        // Throwing event firing spottily for some reason
         public float EffectDurationMulti { get; set; } = 1;
         public float ThrowTimeMulti { get; set; } = 1;
         public float FuseTimeMulti { get; set; } = 1; //works
@@ -33,10 +33,10 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnThrowingItem(ThrowingItemEventArgs ev)
         {
+            Log.Debug("Item being throen!", PluginMain.Instance.Config.DebugMode);
+
             if (!CanModify(ev.Item, ev.Player))
                 return;
-
-            Log.Debug("Item being throen!", PluginMain.Instance.Config.DebugMode);
 
             Throwable item = ev.Item;
             item.PinPullTime *= ThrowTimeMulti;
