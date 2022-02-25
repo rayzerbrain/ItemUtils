@@ -29,9 +29,6 @@ namespace ItemUtils.API.Modifiers
         {
             ItemType damagingItem = ItemType.None;
 
-            if (ev == null)
-                return;
-
             if (ev.Handler.BaseIs(out FirearmDamageHandler handler)) 
                 damagingItem = handler.Item.Type;
             else
@@ -47,7 +44,7 @@ namespace ItemUtils.API.Modifiers
                 }
             }
 
-            if (CanModify(damagingItem, ev.Attacker.Role) && ev.Target != null)
+            if (CanModify(damagingItem, ev.Attacker.Role.Type) && ev.Target != null)
             {
                 if (ev.Target.IsHuman)
                     ev.Amount *= HumanDamageMulti;
