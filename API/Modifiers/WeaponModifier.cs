@@ -27,8 +27,16 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnHurting(HurtingEventArgs ev)
         {
-            ItemType damagingItem = ItemType.None;
+            if(ev.Handler.BaseIs(out FirearmDamageHandler fdh))
+            {
+                fdh.ite
+            }
 
+
+            /*ItemType damagingItem = ItemType.None;
+
+
+            //Test if hadnler.Item uses grenades, if it doesn't then make it
             if (ev.Handler.BaseIs(out FirearmDamageHandler handler)) 
                 damagingItem = handler.Item.Type;
             else
@@ -44,13 +52,13 @@ namespace ItemUtils.API.Modifiers
                 }
             }
 
-            if (CanModify(damagingItem, ev.Attacker.Role.Type) && ev.Target != null)
+            if (Type == damagingItem && !IgnoredRoles.Contains(ev.Attacker.Role.Type) && ev.Target != null)
             {
                 if (ev.Target.IsHuman)
                     ev.Amount *= HumanDamageMulti;
                 else 
                     ev.Amount *= ScpDamageMulti;
-            }
+            }*/
         }
     }
 }

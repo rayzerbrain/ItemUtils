@@ -13,6 +13,7 @@ using ItemUtils.Events;
 using Exiled.API.Features;
 using UnityEngine;
 using Exiled.Events.EventArgs;
+using Exiled.CustomItems.API.Features;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -24,7 +25,8 @@ namespace ItemUtils.API.Modifiers
         internal ItemType Type;
         //for keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();
-        public List<RoleType> ExcludedRoles { get; set; } = new List<RoleType>();
+        public List<RoleType> IgnoredRoles { get; set; } = new List<RoleType>();
+        public List<string> ExcludedCustomItems { get; set; } = new List<string>();
         public Vector3 Scale { get; set; } = Vector3.one;
         public float PickUpTimeMulti { get; set; } = 1;
 
@@ -69,12 +71,19 @@ namespace ItemUtils.API.Modifiers
             });
         }
         // For null checks
-        public bool CanModify(Item item, Player plyr) => 
-            plyr != null && item != null 
-            && CanModify(item.Type, plyr.Role);
-        //For enums only
-        public bool CanModify(ItemType iType, RoleType rType) => 
-            iType != ItemType.None && (Type == iType || Type == ItemType.None)
-            && rType != RoleType.None && !ExcludedRoles.Contains(rType);
+        public bool CanModify(Pickup p)
+        {
+            CustomItem.TryGet(p, out CustomItem ci);
+            return CanModify(p?.Type) && CanModify(ci);
+        }
+        public bool CanModify(Item item, Player plyr)
+        {
+            CustomItem.TryGet(item, out CustomItem ci);
+            return CanModify(item?.Type) && CanModify(ci) && plyr != null && IgnoredRoles.Contains(plyr.Role.Type);
+        }
+        private bool CanModify(ItemType? t) =>
+            t != null && t != ItemType.None && (Type == t || Type == ItemType.None);
+        private bool CanModify(CustomItem ci) =>
+            ci == null || !PluginMain.Instance.Config.IgnoredCustomItems.Contains(ci.Name);
     }
 }

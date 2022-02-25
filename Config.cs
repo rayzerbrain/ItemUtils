@@ -18,6 +18,11 @@ namespace ItemUtils
         [Description("Indicates whether the plugin is enabled or not")]
         public bool IsEnabled { get; set; } = true;
         //Have list of mapped items with types and load in the OnENabled
+        [Description("A list of the names of custom items of which the modifications should not affect")]
+        public List<string> IgnoredCustomItems = new List<string>()
+        {
+            "Example",
+        };
         [Description("List of items and their connected modifiers. Define new modifiers below, examples are given")]
         public Dictionary<ItemType, string> ModifiedItems { get; set; } = new Dictionary<ItemType, string>()
         {
@@ -39,7 +44,7 @@ namespace ItemUtils
             ["BetterRadio"] = new DepletableModifier
             {
                 StartingEnergyMulti = 1.2f,
-                ExcludedRoles = new List<RoleType>()
+                IgnoredRoles = new List<RoleType>()
                 {
                     RoleType.ChaosConscript,
                     RoleType.ChaosRifleman,

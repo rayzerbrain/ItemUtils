@@ -70,7 +70,7 @@ namespace ItemUtils.API.Modifiers
         {
             KeycardPermissions newPerms = card.Base.Permissions;
 
-            if (CanModify(card.Type, card.Owner.Role.Type))
+            if (CanModify(card, card.Owner))
             {
                 foreach (KeycardPermissions perm in AddedPermissions)
                 {
