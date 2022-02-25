@@ -7,6 +7,7 @@ using Exiled.Events.EventArgs;
 using Exiled.API.Extensions;
 using Exiled.API.Enums;
 using Exiled.API.Features.DamageHandlers;
+using Exiled.API.Features.Items;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -27,16 +28,9 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnHurting(HurtingEventArgs ev)
         {
-            if(ev.Handler.BaseIs(out FirearmDamageHandler fdh))
-            {
-                fdh.ite
-            }
+            ItemType damagingItem;
 
 
-            /*ItemType damagingItem = ItemType.None;
-
-
-            //Test if hadnler.Item uses grenades, if it doesn't then make it
             if (ev.Handler.BaseIs(out FirearmDamageHandler handler)) 
                 damagingItem = handler.Item.Type;
             else
@@ -49,6 +43,8 @@ namespace ItemUtils.API.Modifiers
                     case DamageType.Explosion:
                         damagingItem = ItemType.GrenadeHE;
                         break;
+                    default:
+                        return;
                 }
             }
 
@@ -58,7 +54,7 @@ namespace ItemUtils.API.Modifiers
                     ev.Amount *= HumanDamageMulti;
                 else 
                     ev.Amount *= ScpDamageMulti;
-            }*/
+            }
         }
     }
 }
