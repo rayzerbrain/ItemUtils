@@ -72,6 +72,6 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|float|1|Yes|
 |has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|Yes|
   
-Last updated 2/25 19:11, Feel free to suggest additional ones.
+Last updated 2/25 22:02, Feel free to suggest additional ones.
 
 Possibly more coming soon<sup>TM</sup>...
