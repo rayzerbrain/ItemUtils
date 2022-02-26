@@ -32,16 +32,14 @@ item_utils:
         x: 1
         y: 1
         z: 1
-      pickup_time_multi: 1
       use_time_multi: 1.2
-      cooldown_multi: 1
       hp_added: 10
-      ahp_added: 0
     flat_item: 
       scale:
         x: 1
         y: 0.25
         z: 1
+  debug_mode: false
 ```
 Note how a modifier definition is mapped to the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
 ### Modifier information
