@@ -26,7 +26,6 @@ namespace ItemUtils.API.Modifiers
         //for keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();
         public List<RoleType> IgnoredRoles { get; set; } = new List<RoleType>();
-        public List<string> ExcludedCustomItems { get; set; } = new List<string>();
         public Vector3 Scale { get; set; } = Vector3.one;
 
         public virtual void RegisterEvents()

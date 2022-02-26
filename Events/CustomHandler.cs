@@ -8,6 +8,5 @@ namespace ItemUtils.Events
     {
         public static event Exiled.Events.Events.CustomEventHandler<ObtainingItemEventArgs> ObtainingItem;
         public static void OnObtainingItem(ObtainingItemEventArgs ev) => ObtainingItem.InvokeSafely(ev);
-        
     }
 }
