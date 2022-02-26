@@ -11,7 +11,7 @@ The list of available configuration is listed below
 |Config name|Data type|Description|
 |-----------|---------|-----------|
 |is_enabled|Boolean|Determines whether the plugin is enabled or not|
-|ignored_custom_items|List<string>|A list of custom item names. These custom items will not be affected by modifications you create|
+|excluded_custom_items|List<string>|A list of custom item names. These custom items will not be affected by modifications you create|
 |modified_items|Dictionary<ItemType, string>|Maps items to a specified modifier declared below|
 |item_modifiers|Dictionary<string, ItemModifier>|List of declared item modifiers. See below for more information|
 |debug_mode|Boolean|Determines if debug logs will be shown|
@@ -20,6 +20,7 @@ The list of available configuration is listed below
 ```yml
 item_utils:
   is_enabled: true
+  excluded_custom_items: []
   modified_items: 
     Medkit: health_increaser
     Painkillers: health_increaser
