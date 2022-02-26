@@ -45,7 +45,7 @@ Note how a modifier definition is mapped to the item "None". This inversely repr
 ### Modifier information
 Most attributes have examples within the default config that comes with the plugin
 
-NOTE: Many properties require specific pre-defined values, like the names of types of ammo(AmmoType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord
+NOTE: Many properties require specific pre-defined values, like the names of types of items(ItemType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord or ask around
 
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working?|
