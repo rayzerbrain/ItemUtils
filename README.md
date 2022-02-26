@@ -50,7 +50,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working?|
-|--------------------|-----------|-----------|---------|-------------|--------------|
+|--------------|------|----------------------------------|------|-------------|-----|
 |ignored_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
 |scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|
@@ -70,7 +70,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|Yes|
 |body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|Yes|
 |stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|Yes|
-|starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than one)|float|1|Yes|
+|starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|float|1|Yes|
 |has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|Yes|
   
 Last updated 2/25 19:11, Feel free to suggest additional ones.
