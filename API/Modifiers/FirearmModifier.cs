@@ -5,6 +5,7 @@ using Exiled.Events.EventArgs;
 using ItemUtils.Events;
 using ItemUtils.Events.EventArgs;
 using PlayerHandler = Exiled.Events.Handlers.Player;
+using ItemHandler = Exiled.Events.Handlers.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,33 +26,40 @@ namespace ItemUtils.API.Modifiers
         
         public override void RegisterEvents()
         {
-            CustomHandler.ObtainingItem += OnObtainingItem;
             PlayerHandler.Shooting += OnShooting;
             PlayerHandler.Handcuffing += OnHandcuffing;
+            ItemHandler.ChangingDurability += OnUsingAmmo;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
         {
-            CustomHandler.ObtainingItem -= OnObtainingItem;
             PlayerHandler.Shooting -= OnShooting;
             PlayerHandler.Handcuffing -= OnHandcuffing;
+            ItemHandler.ChangingDurability -= OnUsingAmmo;
             base.UnregisterEvents();
         }
         public void OnShooting(ShootingEventArgs ev)
         {
             Firearm gun = ev.Shooter.CurrentItem as Firearm;
+            ItemType t = gun.AmmoType.GetItemType();
+            bool hasAmmo = ev.Shooter.Ammo.ContainsKey(t) && ev.Shooter.Ammo[t] > 0;
 
-            if (!NeedsAmmo) 
-                gun.Ammo++;
-            else if (!NeedsReloading)
+            if (CanModify(gun, ev.Shooter) && !NeedsReloading && hasAmmo)
             {
                 gun.Ammo++;
-                ev.Shooter.Ammo[gun.AmmoType.GetItemType()]--;
             }
         }
-        public void OnObtainingItem(ObtainingItemEventArgs ev)
+        public void OnUsingAmmo(ChangingDurabilityEventArgs ev)
         {
-            Log.Debug("PATCHING SUCCESS!");
+            Log.Debug("Event Called!");
+            if (CanModify(ev.Firearm, ev.Player))
+            {
+                ItemType t = ev.Firearm.AmmoType.GetItemType();
+                ev.IsAllowed = !(NeedsAmmo || NeedsReloading);
+                
+                if (!NeedsReloading && ev.Player.Ammo.ContainsKey(t))
+                    ev.Player.Ammo[t]--;
+            }
         }
         public void OnHandcuffing(HandcuffingEventArgs ev)
         {

@@ -17,7 +17,6 @@ namespace ItemUtils.API.Modifiers
     {
         // Throwing event firing spottily for some reason
         public float EffectDurationMulti { get; set; } = 1;
-        public float ThrowTimeMulti { get; set; } = 1;
         public float FuseTimeMulti { get; set; } = 1; //works
         public float AoeMulti { get; set; } = 1;
 
@@ -33,15 +32,12 @@ namespace ItemUtils.API.Modifiers
         }
         public void OnThrowingItem(ThrowingItemEventArgs ev)
         {
-            Log.Debug("Item being throen!", PluginMain.Instance.Config.DebugMode);
+            Log.Debug($"Player {ev.Player} Throwing Item: {ev.Item}", PluginMain.Instance.Config.DebugMode);
 
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
-            Throwable item = ev.Item;
-            item.PinPullTime *= ThrowTimeMulti;
-
-            if(ev.Item is ExplosiveGrenade gren)
+            if (ev.Item is ExplosiveGrenade gren)
             {
                 gren.BurnDuration *= EffectDurationMulti;
                 gren.ConcussDuration *= EffectDurationMulti;

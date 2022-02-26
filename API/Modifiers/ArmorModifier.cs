@@ -36,8 +36,6 @@ namespace ItemUtils.API.Modifiers
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
-            Log.Debug($"Successful modification of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
-
             Armor armor = ev.Item as Armor;
 
             //List<ArmorAmmoLimit> newLimits = new List<ArmorAmmoLimit>(armor.AmmoLimits);

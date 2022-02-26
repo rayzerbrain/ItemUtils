@@ -20,8 +20,10 @@ namespace ItemUtils
         public override Version RequiredExiledVersion => new Version(5, 0, 0);
         public override string Author => "rayzer";
         public override string Name => "ItemUtils";
+
         private List<ItemModifier> loadedModifiers;
         private Harmony hrmny;
+        
         public override void OnEnabled()
         {
             Singleton = this;

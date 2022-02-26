@@ -28,7 +28,6 @@ namespace ItemUtils.API.Modifiers
         public List<RoleType> IgnoredRoles { get; set; } = new List<RoleType>();
         public List<string> ExcludedCustomItems { get; set; } = new List<string>();
         public Vector3 Scale { get; set; } = Vector3.one;
-        public float PickUpTimeMulti { get; set; } = 1;
 
         public virtual void RegisterEvents()
         {
@@ -54,7 +53,6 @@ namespace ItemUtils.API.Modifiers
                 Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
 
                 ev.Pickup.Scale = Scale;
-                ev.Pickup.Weight *= PickUpTimeMulti;
             });
         }
         public void OnDroppingItem(DroppingItemEventArgs ev)
@@ -67,7 +65,6 @@ namespace ItemUtils.API.Modifiers
                 Log.Debug($"Attempting to modify scale of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
                 Pickup pickup = Map.Pickups.First((p) => p.Serial == ev.Item.Serial);
                 pickup.Scale = Scale;
-                pickup.Weight *= PickUpTimeMulti; // Needs testing
             });
         }
         // For null checks
@@ -79,9 +76,9 @@ namespace ItemUtils.API.Modifiers
         public bool CanModify(Item item, Player plyr)
         {
             CustomItem.TryGet(item, out CustomItem ci);
-            return CanModify(item?.Type) && CanModify(ci) && plyr != null && IgnoredRoles.Contains(plyr.Role.Type);
+            return CanModify(item?.Type) && CanModify(ci) && plyr != null && !IgnoredRoles.Contains(plyr.Role.Type);
         }
-        private bool CanModify(ItemType? t) =>
+        public bool CanModify(ItemType? t) =>
             t != null && t != ItemType.None && (Type == t || Type == ItemType.None);
         private bool CanModify(CustomItem ci) =>
             ci == null || !PluginMain.Instance.Config.IgnoredCustomItems.Contains(ci.Name);

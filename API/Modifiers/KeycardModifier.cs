@@ -21,7 +21,6 @@ namespace ItemUtils.API.Modifiers
         public List<KeycardPermissions> AddedPermissions { get; set; } = new List<KeycardPermissions>();
         public List<KeycardPermissions> RemovedPermissions { get; set; } = new List<KeycardPermissions>();
 
-
         public override void RegisterEvents()
         {
             PlayerHandler.InteractingDoor += OnInteractingDoor;
@@ -42,14 +41,8 @@ namespace ItemUtils.API.Modifiers
         public void OnInteractingDoor(InteractingDoorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions);
         public void OnUnlockingGenerator(UnlockingGeneratorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.ArmoryLevelTwo);
         public void OnInteractingLocker(InteractingLockerEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions);
-        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) 
-        {
-            Log.Debug("EVENT CALLEDDEDD!");
-            Log.Debug($"IS allowed? {ev.IsAllowed}");
-            //throw new Exception();
-            ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
-        }
-
+        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
+        
         public bool CheckPermissions(Player plyr, KeycardPermissions perms)
         {
             if (perms == KeycardPermissions.None) return true;
@@ -58,12 +51,11 @@ namespace ItemUtils.API.Modifiers
             {
                 foreach (Keycard _card in plyr.Items)
                 {
-                    if (CheckPermissions(_card, perms))
+                    if (CheckPermissions(_card, perms) && CanModify(_card.Type))
                         return true;
                 }
                 return false;
             }
-            
             return plyr.CurrentItem is Keycard card && CheckPermissions(card, perms);
         }
         public bool CheckPermissions(Keycard card, KeycardPermissions perms)
@@ -74,7 +66,6 @@ namespace ItemUtils.API.Modifiers
             {
                 foreach (KeycardPermissions perm in AddedPermissions)
                 {
-                    Log.Debug("ADDING PERM " + perm);
                     newPerms += (ushort)perm;
                 }
                 foreach (KeycardPermissions perm in RemovedPermissions)

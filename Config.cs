@@ -27,23 +27,23 @@ namespace ItemUtils
         public Dictionary<ItemType, string> ModifiedItems { get; set; } = new Dictionary<ItemType, string>()
         {
             [ItemType.Painkillers] = "ModifiedPainkillers",
-            [ItemType.Flashlight] = "ModifiedFlashlight",
+            [ItemType.Flashlight] = "SmallFlashlight",
             [ItemType.MicroHID] = "BigItem",
             [ItemType.KeycardContainmentEngineer] = "ModifiedContainmentEngineer",
             [ItemType.ArmorHeavy] = "ModifiedHeavyArmor",
             [ItemType.Coin] = "BigItem",
+            [ItemType.ArmorHeavy] = "BigItem",
             [ItemType.GunCrossvec] = "ModifiedCrossvec",
-            [ItemType.GrenadeFlash] = "ModifiedExplosive",
-            [ItemType.Radio] = "BetterRadio"
+            [ItemType.GrenadeHE] = "ModifiedExplosive",
+            [ItemType.Radio] = "InfiniteRadio",
         };
 
         //blame yaml strict types not me
         [Description("Modifier descriptions for items")]
         public Dictionary<string, object> ItemModifiers { get; set; } = new Dictionary<string, object>()
         {
-            ["BetterRadio"] = new DepletableModifier
+            ["InfiniteRadio"] = new DepletableModifier
             {
-                StartingEnergyMulti = 1.2f,
                 IgnoredRoles = new List<RoleType>()
                 {
                     RoleType.ChaosConscript,
@@ -51,15 +51,15 @@ namespace ItemUtils
                     RoleType.ChaosRepressor,
                     RoleType.ChaosMarauder,
                 },
+                HasInfiniteUse = true,
             },
 
             ["BigItem"] = new ItemModifier
             {
                 Scale = new Vector3(2, 2, 2),
-                PickUpTimeMulti = 3f,
             },
             
-            ["ModifiedFlashlight"] = new ItemModifier
+            ["SmallFlashlight"] = new ItemModifier
             {
                 Scale = new Vector3(1, 1, 0.75f)
             },
@@ -104,9 +104,8 @@ namespace ItemUtils
             
             ["ModifiedExplosive"] = new GrenadeModifier
             {
-                FuseTimeMulti = 0.8f,
-                ThrowTimeMulti = 1.0f,
-                ScpDamageMulti = 1.1f,
+                FuseTimeMulti = 1.1f,
+                ScpDamageMulti = 1.2f,
             },
         };
 

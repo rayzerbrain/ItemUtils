@@ -30,12 +30,11 @@ namespace ItemUtils.API
                     if (baseObj == null || baseObj.GetType().IsSubclassOf(t))
                     {
                         baseObj = newObj;
-                        Log.Debug($"\tDeserialized object type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
+                        Log.Debug($"\tObject type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
                     }
                 }
             }
             
-            Log.Assert(baseObj != null, $"Your config is not set up properly! Config: \n{rawConfig}");
             Log.Debug($"Highest valid type was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
             
             return baseObj;
@@ -49,7 +48,7 @@ namespace ItemUtils.API
             // If any property in the serialized config is not found in the full list of properties, deserialization marked as unsuccessfull
             foreach (string line in rawConfig.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                string prop = "\n" + line.Substring(0, line.IndexOf(':')+1);
+                string prop = "\n" + line.Substring(0, line.IndexOf(':') + 1);
                 if (!allProps.Contains(prop))
                 {
                     Log.Debug($"Object was not {t} because of{prop}", PluginMain.Instance.Config.DebugMode);

@@ -24,32 +24,27 @@ namespace ItemUtils.API.Modifiers
         public override void RegisterEvents()
         {
             PlayerHandler.UsingItem += OnUsingItem;
-            PlayerHandler.UsedItem += OnItemUsed;
+            PlayerHandler.UsedItem += OnUsedItem;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
         {
             PlayerHandler.UsingItem -= OnUsingItem;
-            PlayerHandler.UsedItem -= OnItemUsed;
+            PlayerHandler.UsedItem -= OnUsedItem;
             base.UnregisterEvents();
         }
         public void OnUsingItem(UsingItemEventArgs ev)
         {
             if (CanModify(ev.Item, ev.Player))
             {
-                Log.Debug("Modify check passed for UsingItem", PluginMain.Instance.Config.DebugMode);
                 ev.Item.UseTime *= UseTimeMulti;
                 ev.Item.RemainingCooldown *= CooldownMulti;
             }
         }
-        public void OnItemUsed(UsedItemEventArgs ev)
+        public void OnUsedItem(UsedItemEventArgs ev)
         {
-            Log.Debug($"Chcecking Item of type {ev.Item.Type} for player {ev.Player}");
-
             if (!CanModify(ev.Item, ev.Player))
                 return;
-
-            Log.Debug("Healing... ", PluginMain.Instance.Config.DebugMode);
 
             if (HpAdded >= 0) 
                 ev.Player.Heal(HpAdded);
