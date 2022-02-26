@@ -11,6 +11,7 @@ The list of available configuration is listed below
 |Config name|Data type|Description|
 |-----------|---------|-----------|
 |is_enabled|Boolean|Determines whether the plugin is enabled or not|
+|ignored_custom_items|List<string>|A list of custom item names. These custom items will not be affected by modifications you create|
 |modified_items|Dictionary<ItemType, string>|Maps items to a specified modifier declared below|
 |item_modifiers|Dictionary<string, ItemModifier>|List of declared item modifiers. See below for more information|
 |debug_mode|Boolean|Determines if debug logs will be shown|
@@ -50,7 +51,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working?|
 |--------------------|-----------|-----------|---------|-------------|--------------|
-|excluded_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
+|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
 |scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|
 |human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|Yes|
