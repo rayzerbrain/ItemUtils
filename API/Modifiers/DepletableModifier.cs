@@ -37,7 +37,7 @@ namespace ItemUtils.API.Modifiers
             if (!CanModify(ev.Item, ev.Player))
                 return;
 
-            Log.Debug($"Changing battery of item {ev.Item.Type}");
+            Log.Debug($"Changing battery of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
             if (ev.Item is MicroHid micro)
                 micro.Energy *= StartingEnergyMulti;
             else if (ev.Item is RadioItem radio)
