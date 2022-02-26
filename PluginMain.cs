@@ -56,7 +56,6 @@ namespace ItemUtils
                 }
 
                 ItemModifier mod = sd.FindValidSubtype(Loader.Serializer.Serialize(match), types);
-                Log.Assert(mod != null, $"Your config is not set up properly! Config:\n{map.Value}");
 
                 mod.Type = map.Key;
                 mod.RegisterEvents();

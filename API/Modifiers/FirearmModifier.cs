@@ -21,45 +21,26 @@ namespace ItemUtils.API.Modifiers
         //attachement modification support soon (tm)
         //all needs testing
         public bool NeedsAmmo { get; set; } = true;
-        public bool NeedsReloading { get; set; } = true;
         public bool CanDisarm { get; set; } = true;
         
         public override void RegisterEvents()
         {
-            PlayerHandler.Shooting += OnShooting;
             PlayerHandler.Handcuffing += OnHandcuffing;
             ItemHandler.ChangingDurability += OnUsingAmmo;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
         {
-            PlayerHandler.Shooting -= OnShooting;
             PlayerHandler.Handcuffing -= OnHandcuffing;
             ItemHandler.ChangingDurability -= OnUsingAmmo;
             base.UnregisterEvents();
         }
-        public void OnShooting(ShootingEventArgs ev)
-        {
-            Firearm gun = ev.Shooter.CurrentItem as Firearm;
-            ItemType t = gun.AmmoType.GetItemType();
-            bool hasAmmo = ev.Shooter.Ammo.ContainsKey(t) && ev.Shooter.Ammo[t] > 0;
-
-            if (CanModify(gun, ev.Shooter) && !NeedsReloading && hasAmmo)
-            {
-                gun.Ammo++;
-            }
-        }
         public void OnUsingAmmo(ChangingDurabilityEventArgs ev)
         {
-            Log.Debug("Event Called!");
-            if (CanModify(ev.Firearm, ev.Player))
-            {
-                ItemType t = ev.Firearm.AmmoType.GetItemType();
-                ev.IsAllowed = !(NeedsAmmo || NeedsReloading);
-                
-                if (!NeedsReloading && ev.Player.Ammo.ContainsKey(t))
-                    ev.Player.Ammo[t]--;
-            }
+            if (!CanModify(ev.Firearm, ev.Player))
+                return;
+
+            ev.IsAllowed = NeedsAmmo;
         }
         public void OnHandcuffing(HandcuffingEventArgs ev)
         {

@@ -36,7 +36,9 @@ namespace ItemUtils.API
             }
             
             Log.Debug($"Highest valid type was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
-            
+
+            Log.Assert(baseObj != null, $"Your config is not set up properly! Config:\n{rawConfig}");
+
             return baseObj;
         }
 

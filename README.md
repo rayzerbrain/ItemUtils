@@ -52,10 +52,9 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |--------------------|-----------|-----------|---------|-------------|--------------|
 |excluded_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
-|scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Unknown|
-|human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|Unknown|
-|use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|Yes|
-|cooldown_multi|Consumables (and hat)|Affects how long it takes before you can use that item after cancelling it (does NOT affect hat cooldown)|float|1|Unknown|
+|scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|
+|human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|Yes|
+|use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|Yes||
 |hp_added|Consumables (and hat)|Adds a certain amount of hp after using the item|float|0|Yes|
 |ahp_added|Consumables (and hat)|Adds an amount of ahp after using the item|float|0|Yes|
 |effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List<EffectType>|[ ]|Yes|
@@ -63,14 +62,12 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |added_permissions|Keycards|List of permissions the card will gain|List<KeycardPermission>|[ ]|Yes|
 |removed_permissions|Keycards|List of permissions the card will lose|List<KeycardPermission>|[ ]|Yes|
 |needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|Yes|
-|needs_reloading|Guns|Determines whether the gun needs to be reloaded|Boolean|true|Yes (Shooting event only called after stopped firing)|
-|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|Unknown|
-|effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|Unknown|
+|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|Yes|
+|effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|Yes|
 |fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|Yes|
-|aoe_multi|Grenades|Affects the AOE (area of effect) of a grenade|float|1|Unknown|
 |ammo_limit_multis|Armors|Affects the ammo limits of a type of armor|Dictionary<AmmoType, float>|{ }|Yes|
-|helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|Unknown|
-|body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|Unknown|
+|helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|Yes|
+|body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|Yes|
 |stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|Yes|
 |starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than one)|float|1|Yes|
 |has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|Yes|

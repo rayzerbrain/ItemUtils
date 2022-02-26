@@ -18,7 +18,6 @@ namespace ItemUtils.API.Modifiers
         // Throwing event firing spottily for some reason
         public float EffectDurationMulti { get; set; } = 1;
         public float FuseTimeMulti { get; set; } = 1; //works
-        public float AoeMulti { get; set; } = 1;
 
         public override void RegisterEvents()
         {
@@ -43,12 +42,10 @@ namespace ItemUtils.API.Modifiers
                 gren.ConcussDuration *= EffectDurationMulti;
                 gren.DeafenDuration *= EffectDurationMulti;
                 gren.FuseTime *= FuseTimeMulti;
-                gren.MaxRadius *= AoeMulti;
             }
             else if (ev.Item is FlashGrenade flash)
             {
                 flash.FuseTime *= FuseTimeMulti;
-                flash.SurfaceDistanceIntensifier *= AoeMulti;
             }
         }
         

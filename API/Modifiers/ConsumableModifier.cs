@@ -16,7 +16,6 @@ namespace ItemUtils.API.Modifiers
     public class ConsumableModifier : ItemModifier
     {
         public float UseTimeMulti { get; set; } = 1;
-        public float CooldownMulti { get; set; } = 1;
         public float HpAdded { get; set; } = 0; //tested
         public float AhpAdded { get; set; } = 0; //tested
         public List<ConfigurableEffect> Effects { get; set; } = new List<ConfigurableEffect>();
@@ -38,7 +37,6 @@ namespace ItemUtils.API.Modifiers
             if (CanModify(ev.Item, ev.Player))
             {
                 ev.Item.UseTime *= UseTimeMulti;
-                ev.Item.RemainingCooldown *= CooldownMulti;
             }
         }
         public void OnUsedItem(UsedItemEventArgs ev)

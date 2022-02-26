@@ -61,7 +61,7 @@ namespace ItemUtils
             
             ["SmallFlashlight"] = new ItemModifier
             {
-                Scale = new Vector3(1, 1, 0.75f)
+                Scale = new Vector3(1, 1, 0.75f),
             },
             
             ["ModifiedHeavyArmor"] = new ArmorModifier
@@ -99,7 +99,7 @@ namespace ItemUtils
             
             ["ModifiedLogicer"] = new FirearmModifier
             {
-                NeedsReloading = false,
+                ScpDamageMulti = 1.2f,
             },
             
             ["ModifiedExplosive"] = new GrenadeModifier
