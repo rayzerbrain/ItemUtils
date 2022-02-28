@@ -11,7 +11,7 @@ The list of available configuration is listed below
 |Config name|Data type|Description|
 |-----------|---------|-----------|
 |is_enabled|Boolean|Determines whether the plugin is enabled or not|
-|excluded_custom_items|List<string>|A list of custom item names. These custom items will not be affected by modifications you create|
+|excluded_custom_items|List\<string>|A list of custom item names. These custom items will not be affected by modifications you create|
 |item_modifiers|Dictionary<string, ItemModifier>|List of declared item modifiers. See below for more information|
 |debug_mode|Boolean|Determines if debug logs will be shown|
 
@@ -54,18 +54,18 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 
 |Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working/Status|
 |--------------|------|----------------------------------|------|-------------|-----|
-|affected_items|All|The list of items that will receive modifications|List<ItemType>|[ ]|Yes|
-|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
+|affected_items|All|The list of items that will receive modifications|List\<ItemType>|[ ]|Yes|
+|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List\<RoleType>|[ ]|Yes|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
 |scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|
 |human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|Yes|
 |use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|Yes||
 |hp_added|Consumables (and hat)|Adds a certain amount of hp after using the item|float|0|Yes|
 |ahp_added|Consumables (and hat)|Adds an amount of ahp after using the item|float|0|Yes|
-|effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List<EffectType>|[ ]|Yes|
+|effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List\<EffectType>|[ ]|Yes|
 |can_be_used_remotely|Keycards|Determines if the card can be used from the inventory|Boolean|false|Yes|
-|added_permissions|Keycards|List of permissions the card will gain|List<KeycardPermission>|[ ]|Yes|
-|removed_permissions|Keycards|List of permissions the card will lose|List<KeycardPermission>|[ ]|Yes|
+|added_permissions|Keycards|List of permissions the card will gain|List\<KeycardPermission>|[ ]|Yes|
+|removed_permissions|Keycards|List of permissions the card will lose|List\<KeycardPermission>|[ ]|Yes|
 |needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|Yes|
 |can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|Yes|
 |effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|Yes|
