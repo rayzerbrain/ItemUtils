@@ -19,12 +19,10 @@ namespace ItemUtils.API.Modifiers
 {
     public class ItemModifier
     {
-        //Only pick up time needs testing
-
-        // The type of item the modifier will affect
-        internal ItemType Type;
-        //for keeping track of one-time modifications
+        // For keeping track of one-time modifications
         internal List<ushort> RegisteredSerials = new List<ushort>();
+        // The types of item the modifier will affect
+        public List<ItemType> AffectedItems { get; set; } = new List<ItemType>();
         public List<RoleType> IgnoredRoles { get; set; } = new List<RoleType>();
         public Vector3 Scale { get; set; } = Vector3.one;
 
@@ -46,7 +44,7 @@ namespace ItemUtils.API.Modifiers
         {
             Timing.CallDelayed(0.1f, () => 
             {
-                if (ev.Pickup.Type != Type)
+                if (!CanModify(ev.Pickup.Type))
                     return;
 
                 Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
@@ -78,7 +76,7 @@ namespace ItemUtils.API.Modifiers
             return CanModify(item?.Type) && CanModify(ci) && plyr != null && !IgnoredRoles.Contains(plyr.Role.Type);
         }
         public bool CanModify(ItemType? t) =>
-            t != null && t != ItemType.None && (Type == t || Type == ItemType.None);
+            t != null && t != ItemType.None && (AffectedItems.Contains((ItemType)t) || AffectedItems.Contains(ItemType.None));
         private bool CanModify(CustomItem ci) =>
             ci == null || !PluginMain.Instance.Config.IgnoredCustomItems.Contains(ci.Name);
     }

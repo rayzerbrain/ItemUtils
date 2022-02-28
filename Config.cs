@@ -23,20 +23,6 @@ namespace ItemUtils
         {
             "Example",
         };
-        [Description("List of items and their connected modifiers. Define new modifiers below, examples are given")]
-        public Dictionary<ItemType, string> ModifiedItems { get; set; } = new Dictionary<ItemType, string>()
-        {
-            [ItemType.Painkillers] = "ModifiedPainkillers",
-            [ItemType.Flashlight] = "SmallFlashlight",
-            [ItemType.MicroHID] = "BigItem",
-            [ItemType.KeycardContainmentEngineer] = "ModifiedContainmentEngineer",
-            [ItemType.ArmorHeavy] = "ModifiedHeavyArmor",
-            [ItemType.Coin] = "BigItem",
-            [ItemType.ArmorHeavy] = "BigItem",
-            [ItemType.GunCrossvec] = "ModifiedCrossvec",
-            [ItemType.GrenadeHE] = "ModifiedExplosive",
-            [ItemType.Radio] = "InfiniteRadio",
-        };
 
         //blame yaml strict types not me
         [Description("Modifier descriptions for items")]
@@ -44,7 +30,11 @@ namespace ItemUtils
         {
             ["InfiniteRadio"] = new DepletableModifier
             {
-                IgnoredRoles = new List<RoleType>()
+                AffectedItems = 
+                {
+                    ItemType.Radio
+                },
+                IgnoredRoles = 
                 {
                     RoleType.ChaosConscript,
                     RoleType.ChaosRifleman,
@@ -56,18 +46,27 @@ namespace ItemUtils
 
             ["BigItem"] = new ItemModifier
             {
+                AffectedItems = 
+                {
+                    ItemType.Coin,
+                    ItemType.ArmorHeavy,
+                },
                 Scale = new Vector3(2, 2, 2),
             },
             
             ["SmallFlashlight"] = new ItemModifier
             {
+                AffectedItems = 
+                {
+                    ItemType.Flashlight,
+                },
                 Scale = new Vector3(1, 1, 0.75f),
             },
             
             ["ModifiedHeavyArmor"] = new ArmorModifier
             {
                 Scale = new Vector3(1.2f, 1.2f, 1.2f),
-                AmmoLimitMultis = new Dictionary<AmmoType, float>()
+                AmmoLimitMultis = 
                 {
                     {
                         AmmoType.Nato9, 1.2f
@@ -78,10 +77,14 @@ namespace ItemUtils
 
             ["ModifiedPainkillers"] = new ConsumableModifier 
             {
+                AffectedItems = 
+                {
+                    ItemType.Painkillers,
+                },
                 Scale = new Vector3(1, 3, 1), 
                 HpAdded = 5, 
                 AhpAdded = 0,
-                Effects = new List<ConfigurableEffect>()
+                Effects = 
                 {
                     new ConfigurableEffect()
                     {
@@ -94,17 +97,19 @@ namespace ItemUtils
             
             ["ModifiedContainmentEngineer"] = new KeycardModifier
             {
+                AffectedItems =
+                {
+                    ItemType.KeycardContainmentEngineer,
+                },
                 AddedPermissions = { KeycardPermissions.AlphaWarhead, KeycardPermissions.Intercom }
             },
             
             ["ModifiedLogicer"] = new FirearmModifier
             {
-                ScpDamageMulti = 1.2f,
-            },
-            
-            ["ModifiedExplosive"] = new GrenadeModifier
-            {
-                FuseTimeMulti = 1.1f,
+                AffectedItems =
+                {
+                    ItemType.GunLogicer,
+                },
                 ScpDamageMulti = 1.2f,
             },
         };

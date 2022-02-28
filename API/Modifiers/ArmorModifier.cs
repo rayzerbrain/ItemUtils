@@ -41,14 +41,16 @@ namespace ItemUtils.API.Modifiers
             //List<ArmorAmmoLimit> newLimits = new List<ArmorAmmoLimit>(armor.AmmoLimits);
             for (int i=0; i<armor.Base.AmmoLimits.Length; i++)
             {
-                ArmorAmmoLimit limit = armor.Base.AmmoLimits[i];
-                AmmoType aType = limit.AmmoType.GetAmmoType();
+                ArmorAmmoLimit lim = armor.Base.AmmoLimits[i];
+                AmmoType aType = lim.AmmoType.GetAmmoType();
 
                 if(AmmoLimitMultis.ContainsKey(aType))
                 {
-                    ArmorAmmoLimit newLim = limit;
-                    newLim.Limit = (ushort)(limit.Limit * AmmoLimitMultis[aType]);
+                    ArmorAmmoLimit newLim = lim;
+                    newLim.Limit = (ushort)(lim.Limit * AmmoLimitMultis[aType]);
+                    Log.Debug($"Old value for {aType}: {lim.Limit}. New value: {newLim.Limit}", PluginMain.Instance.Config.DebugMode);
                     armor.Base.AmmoLimits[i] = newLim;
+                    
                 }
             }
             //armor.AmmoLimits = newLimits;

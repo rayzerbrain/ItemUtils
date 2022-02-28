@@ -47,17 +47,10 @@ namespace ItemUtils
             SubtypeDeserializer<ItemModifier> sd = new SubtypeDeserializer<ItemModifier>();
             List<Type> types = new List<Type>(Assembly.GetTypes());
 
-            foreach (KeyValuePair<ItemType, string> map in Config.ModifiedItems)
+            foreach (KeyValuePair<string, object> map in Config.ItemModifiers)
             {
-                if (!Config.ItemModifiers.TryGetValue(map.Value, out object match))
-                {
-                    Log.Warn($"No modifier of name {map.Value} found for item {map.Key}, skipping...");
-                    continue;
-                }
+                ItemModifier mod = sd.FindValidSubtype(Loader.Serializer.Serialize(map.Value), types);
 
-                ItemModifier mod = sd.FindValidSubtype(Loader.Serializer.Serialize(match), types);
-
-                mod.Type = map.Key;
                 mod.RegisterEvents();
                 loadedModifiers.Add(mod);
             }

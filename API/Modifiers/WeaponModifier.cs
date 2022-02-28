@@ -48,7 +48,7 @@ namespace ItemUtils.API.Modifiers
                 }
             }
 
-            if (Type == damagingItem && !IgnoredRoles.Contains(ev.Attacker.Role.Type) && ev.Target != null)
+            if (AffectedItems.Contains(damagingItem) && !IgnoredRoles.Contains(ev.Attacker.Role.Type) && ev.Target != null)
             {
                 if (ev.Target.IsHuman)
                     ev.Amount *= HumanDamageMulti;

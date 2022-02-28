@@ -12,7 +12,6 @@ The list of available configuration is listed below
 |-----------|---------|-----------|
 |is_enabled|Boolean|Determines whether the plugin is enabled or not|
 |excluded_custom_items|List<string>|A list of custom item names. These custom items will not be affected by modifications you create|
-|modified_items|Dictionary<ItemType, string>|Maps items to a specified modifier declared below|
 |item_modifiers|Dictionary<string, ItemModifier>|List of declared item modifiers. See below for more information|
 |debug_mode|Boolean|Determines if debug logs will be shown|
 
@@ -27,6 +26,9 @@ item_utils:
     None: flat_item
   item_modifiers:
     health_increaser:
+      affected_items:
+      - Medkit
+      - Painkillers
       excluded_roles: []
       scale: 
         x: 1
@@ -35,21 +37,24 @@ item_utils:
       use_time_multi: 1.2
       hp_added: 10
     flat_item: 
+      affected_items:
+      - None
       scale:
         x: 1
         y: 0.25
         z: 1
   debug_mode: false
 ```
-Note how a modifier definition is mapped to the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
+Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
 ### Modifier information
 Most attributes have examples within the default config that comes with the plugin
 
 NOTE: Many properties require specific pre-defined values, like the names of types of items(ItemType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord or ask around
 
 
-|Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working?|
+|Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working/Status|
 |--------------|------|----------------------------------|------|-------------|-----|
+|affected_items|All|The list of items that will receive modifications|List<ItemType>|[ ]|Yes|
 |ignored_roles|All|Prevents modifications from taking effect for each role in this list|List<RoleType>|[ ]|Yes|
 |scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
 |scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|

@@ -45,16 +45,25 @@ namespace ItemUtils.API.Modifiers
         
         public bool CheckPermissions(Player plyr, KeycardPermissions perms)
         {
-            if (perms == KeycardPermissions.None) return true;
+            Log.Debug($"Starting check of permissions {perms}", PluginMain.Instance.Config.DebugMode);
+
+            if (perms == KeycardPermissions.None)
+                return true;
+
+            if (perms.HasFlagFast(KeycardPermissions.ScpOverride))
+            {
+                perms -= KeycardPermissions.ScpOverride;
+                if (plyr.IsScp)
+                    return true;
+            }
 
             if (CanBeUsedRemotely)
             {
-                foreach (Keycard _card in plyr.Items)
+                foreach (Item item in plyr.Items)
                 {
-                    if (CheckPermissions(_card, perms) && CanModify(_card.Type))
+                    if (item is Keycard _card && CheckPermissions(_card, perms) && CanModify(_card.Type))
                         return true;
                 }
-                return false;
             }
             return plyr.CurrentItem is Keycard card && CheckPermissions(card, perms);
         }
