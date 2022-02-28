@@ -20,10 +20,6 @@ The list of available configuration is listed below
 item_utils:
   is_enabled: true
   excluded_custom_items: []
-  modified_items: 
-    Medkit: health_increaser
-    Painkillers: health_increaser
-    None: flat_item
   item_modifiers:
     health_increaser:
       affected_items:
