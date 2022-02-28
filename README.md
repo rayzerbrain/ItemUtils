@@ -52,7 +52,7 @@ Most attributes have examples within the default config that comes with the plug
 NOTE: Many properties require specific pre-defined values, like the names of types of items(ItemType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord or ask around
 
 
-|Modifiable Attribute|Valid Items &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description |Data type|Default value|Currently working/Status|
+|Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working/Status|
 |--------------|------|----------------------------------|------|-------------|-----|
 |affected_items|All|The list of items that will receive modifications|List\<ItemType>|[ ]|Yes|
 |ignored_roles|All|Prevents modifications from taking effect for each role in this list|List\<RoleType>|[ ]|Yes|
