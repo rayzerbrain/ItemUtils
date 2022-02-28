@@ -1,18 +1,8 @@
-﻿using Exiled.API.Enums;
-using Exiled.API.Features;
-using Exiled.API.Features.Items;
-using Exiled.Events.EventArgs;
-using ItemUtils.Events;
-using ItemUtils.Events.EventArgs;
+﻿using Exiled.Events.EventArgs;
+
 using PlayerHandler = Exiled.Events.Handlers.Player;
 using ItemHandler = Exiled.Events.Handlers.Item;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventorySystem.Items.Firearms.Modules;
-using Exiled.API.Extensions;
+
 
 namespace ItemUtils.API.Modifiers
 {

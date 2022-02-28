@@ -1,15 +1,9 @@
-﻿using Exiled.API.Features.Items;
+﻿using Exiled.API.Features;
+using Exiled.API.Features.Items;
 using Exiled.Events.EventArgs;
+
 using PlayerHandler = Exiled.Events.Handlers.Player;
-using InventorySystem.Items.ThrowableProjectiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CustomPlayerEffects;
-using UnityEngine;
-using Exiled.API.Features;
+
 
 namespace ItemUtils.API.Modifiers
 {

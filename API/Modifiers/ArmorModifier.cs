@@ -1,15 +1,15 @@
-﻿using Exiled.API.Features.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exiled.API.Enums;
+﻿using System.Collections.Generic;
+
 using Exiled.API.Features;
+using Exiled.API.Features.Items;
+using Exiled.API.Enums;
 using Exiled.API.Extensions;
-using ItemUtils.Events.EventArgs;
+
 using ItemUtils.Events;
+using ItemUtils.Events.EventArgs;
+
 using static InventorySystem.Items.Armor.BodyArmor;
+
 
 namespace ItemUtils.API.Modifiers
 {

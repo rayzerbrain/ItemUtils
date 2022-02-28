@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MapHandler = Exiled.Events.Handlers.Map;
-using PlayerHandler = Exiled.Events.Handlers.Player;
 
-using ServerHandler = Exiled.Events.Handlers.Server;
-using MEC;
-using Exiled.API.Features.Items;
-using Exiled.API.Extensions;
-using ItemUtils.Events;
-using Exiled.API.Features;
 using UnityEngine;
+
+using MEC;
+
+using Exiled.API.Features.Items;
+using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using Exiled.CustomItems.API.Features;
+
+using MapHandler = Exiled.Events.Handlers.Map;
+using PlayerHandler = Exiled.Events.Handlers.Player;
+using ServerHandler = Exiled.Events.Handlers.Server;
+
 
 namespace ItemUtils.API.Modifiers
 {

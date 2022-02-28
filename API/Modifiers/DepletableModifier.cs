@@ -1,15 +1,14 @@
-﻿using Exiled.API.Features.Items;
+﻿using Exiled.API.Features;
+using Exiled.API.Features.Items;
 using Exiled.Events.EventArgs;
+
 using ItemUtils.Events;
 using ItemUtils.Events.EventArgs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using RadioItem = Exiled.API.Features.Items.Radio;
+
 using PlayerHandler = Exiled.Events.Handlers.Player;
-using Exiled.API.Features;
+
 
 namespace ItemUtils.API.Modifiers
 {

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using Interactables.Interobjects.DoorUtils;
+
 using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using Exiled.Events.EventArgs;
-using Interactables.Interobjects.DoorUtils;
+
+
 using PlayerHandler = Exiled.Events.Handlers.Player;
-using ItemUtils.Events;
-using ItemUtils.Events.EventArgs;
 
 namespace ItemUtils.API.Modifiers
 {
