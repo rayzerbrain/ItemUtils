@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 using HarmonyLib;
 
@@ -9,6 +8,7 @@ using Exiled.Loader;
 
 using ItemUtils.API.Modifiers;
 using ItemUtils.API;
+
 
 namespace ItemUtils
 {
@@ -50,6 +50,9 @@ namespace ItemUtils
             foreach (KeyValuePair<string, object> map in Config.ItemModifiers)
             {
                 ItemModifier mod = sd.FindValidSubtype(Loader.Serializer.Serialize(map.Value), types);
+
+                if (mod.AffectedItems.IsEmpty())
+                    Log.Warn($"The modifier {map.Key} does not affect any items!");
 
                 mod.RegisterEvents();
                 loadedModifiers.Add(mod);

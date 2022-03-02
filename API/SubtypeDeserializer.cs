@@ -1,17 +1,16 @@
-﻿using Exiled.API.Features;
-using Exiled.Loader;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Exiled.API.Features;
+using Exiled.Loader;
+
 
 namespace ItemUtils.API
 {
     //T is the base class
     public class SubtypeDeserializer<TBase> where TBase : class
     {
-        // Finds highest clas in the hierarchy(TBase being highest) that retains all properties from the config
+        // Finds highest class in the hierarchy(TBase being highest) that retains all properties from the config
         // rawConfig represents a single object, with types containing the possible subtypes
         public TBase FindValidSubtype(string rawConfig, List<Type> types)
         {

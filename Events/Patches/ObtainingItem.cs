@@ -4,7 +4,7 @@ using InventorySystem;
 using InventorySystem.Items;
 
 using ItemUtils.Events.EventArgs;
-using MEC;
+
 
 namespace ItemUtils.Events.Patches
 {
@@ -16,8 +16,8 @@ namespace ItemUtils.Events.Patches
         public static void Postfix(ReferenceHub __0, ref ItemBase __result)
         {
             ItemBase item = __result;
-            /*Timing.CallDelayed(0.5f, () =>
-            {*/
+            //Timing.CallDelayed(0.5f, () =>
+            //{
                 ObtainingItemEventArgs ev = new ObtainingItemEventArgs(__0, item);
                 CustomHandler.OnObtainingItem(ev);
             //});
