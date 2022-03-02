@@ -27,7 +27,7 @@ item_utils:
       - Painkillers
       excluded_roles: []
       scale: 
-        x: 1
+        x: 1.1
         y: 1
         z: 1
       use_time_multi: 1.2
@@ -42,6 +42,10 @@ item_utils:
   debug_mode: false
 ```
 Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
+
+Also note that since the `flat_item` modifier is declared after `health_increaser`, `flat_item` has "higher priority".
+This is important because the modifier with the higher priority will take effect LAST. 
+In the above case, `flat_item`'s scale will take effect for all items after any other scale changes before it, rendering the given scale for `health_increaser` useless.
 ### Modifier information
 Most attributes have examples within the default config that comes with the plugin
 
