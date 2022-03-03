@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using KeycardPermissions = Interactables.Interobjects.DoorUtils.KeycardPermissions;
-
 using Exiled.API.Interfaces;
 using Exiled.API.Enums;
 
 using ItemUtils.API;
 using ItemUtils.API.Modifiers;
+
+using KeycardPermissions = Interactables.Interobjects.DoorUtils.KeycardPermissions;
+
 
 namespace ItemUtils
 {
