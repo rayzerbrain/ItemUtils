@@ -20,10 +20,6 @@ The list of available configuration is listed below
 item_utils:
   is_enabled: true
   excluded_custom_items: []
-  modified_items: 
-    Medkit: health_increaser
-    Painkillers: health_increaser
-    None: flat_item
   item_modifiers:
     health_increaser:
       affected_items:
@@ -31,7 +27,7 @@ item_utils:
       - Painkillers
       excluded_roles: []
       scale: 
-        x: 1
+        x: 1.1
         y: 1
         z: 1
       use_time_multi: 1.2
@@ -46,36 +42,40 @@ item_utils:
   debug_mode: false
 ```
 Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
+
+Also note that since the `flat_item` modifier is declared after `health_increaser`, `flat_item` has "higher priority".
+This is important because the modifier with the higher priority will take effect LAST. 
+In the above case, `flat_item`'s scale will take effect for all items after any other scale changes before it, rendering the given scale for `health_increaser` useless.
 ### Modifier information
 Most attributes have examples within the default config that comes with the plugin
 
 NOTE: Many properties require specific pre-defined values, like the names of types of items(ItemType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord or ask around
 
 
-|Modifiable Attribute|Valid Items|Description|Data type|Default value|Currently working/Status|
-|--------------|------|----------------------------------|------|-------------|-----|
-|affected_items|All|The list of items that will receive modifications|List\<ItemType>|[ ]|Yes|
-|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List\<RoleType>|[ ]|Yes|
-|scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|Yes|
-|scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|Yes|
-|human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|Yes|
-|use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|Yes||
-|hp_added|Consumables (and hat)|Adds a certain amount of hp after using the item|float|0|Yes|
-|ahp_added|Consumables (and hat)|Adds an amount of ahp after using the item|float|0|Yes|
-|effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List\<EffectType>|[ ]|Yes|
-|can_be_used_remotely|Keycards|Determines if the card can be used from the inventory|Boolean|false|Yes|
-|added_permissions|Keycards|List of permissions the card will gain|List\<KeycardPermission>|[ ]|Yes|
-|removed_permissions|Keycards|List of permissions the card will lose|List\<KeycardPermission>|[ ]|Yes|
-|needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|Yes|
-|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|Yes|
-|effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|Yes|
-|fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|Yes|
-|ammo_limit_multis|Armors|Affects the ammo limits of a type of armor|Dictionary<AmmoType, float>|{ }|Yes|
-|helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|Yes|
-|body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|Yes|
-|stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|Yes|
-|starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|float|1|Yes|
-|has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|Yes|
+|Modifiable Attribute|Valid Items|Description|Data type|Default value|
+|--------------|------|----------------------------------|------|-------------|
+|affected_items|All|The list of items that will receive modifications|List\<ItemType>|[ ]|
+|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List\<RoleType>|[ ]|
+|scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|
+|scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|
+|human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|
+|use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|
+|hp_added|Consumables (and hat)|Adds a certain amount of hp after using the item|float|0|
+|ahp_added|Consumables (and hat)|Adds an amount of ahp after using the item|float|0|
+|effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List\<EffectType>|[ ]|
+|can_be_used_remotely|Keycards|Determines if the card can be used from the inventory|Boolean|false|
+|added_permissions|Keycards|List of permissions the card will gain|List\<KeycardPermission>|[ ]|
+|removed_permissions|Keycards|List of permissions the card will lose|List\<KeycardPermission>|[ ]|
+|needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|
+|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|
+|effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|
+|fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|
+|ammo_limit_multis|Armors|Affects the ammo limits of a type of armor|Dictionary<AmmoType, float>|{ }|
+|helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|
+|body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|
+|stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|
+|starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|float|1|
+|has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|
   
 Last updated 2/25 22:02, Feel free to suggest additional ones.
 
