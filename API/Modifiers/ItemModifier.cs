@@ -44,7 +44,7 @@ namespace ItemUtils.API.Modifiers
         {
             Timing.CallDelayed(0.1f, () => 
             {
-                if (!CanModify(ev.Pickup))
+                if (!CanModify(ev.Pickup.Type))
                     return;
 
                 Log.Debug($"Attempting to modify scale of item {ev.Pickup.Type}", PluginMain.Instance.Config.DebugMode);
