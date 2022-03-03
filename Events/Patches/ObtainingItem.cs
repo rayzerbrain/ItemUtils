@@ -4,6 +4,7 @@ using InventorySystem;
 using InventorySystem.Items;
 
 using ItemUtils.Events.EventArgs;
+using MEC;
 
 namespace ItemUtils.Events.Patches
 {
