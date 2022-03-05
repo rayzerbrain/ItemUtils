@@ -31,6 +31,7 @@ namespace ItemUtils.API.Modifiers
             CustomHandler.ObtainingItem -= OnObtainingItem;
             base.UnregisterEvents();
         }
+
         public void OnObtainingItem(ObtainingItemEventArgs ev)
         {
             if (!CanModify(ev.Item, ev.Player))
@@ -71,6 +72,5 @@ namespace ItemUtils.API.Modifiers
                 armor.StaminaUseMultiplier = StaminaUseMulti;
             else Log.Warn("Armor stamina use multiplier is an invalid number. Please change it to be between 1 and 2 for it to work correctly.");
         }
-        
     }
 }
