@@ -70,7 +70,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|
 |effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|
 |fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|
-|ammo_limit_multis|Armors|Affects the ammo limits of a type of armor|Dictionary<AmmoType, float>|{ }|
+|ammo_limit_multis|Armors|Affects the ammo limits of a type of armor (currently unavailable due to client side checks)|Dictionary<AmmoType, float>|{ }|
 |helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|
 |body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|
 |stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|
