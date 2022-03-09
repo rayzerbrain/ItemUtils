@@ -16,7 +16,7 @@ namespace ItemUtils
     {
         private static PluginMain Singleton;
         public static PluginMain Instance => Singleton;
-        public override Version Version => new Version(1, 0, 0);
+        public override Version Version => new Version(1, 1, 1);
         public override Version RequiredExiledVersion => new Version(5, 0, 0);
         public override string Author => "rayzer";
         public override string Name => "ItemUtils";

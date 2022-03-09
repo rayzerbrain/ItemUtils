@@ -1,19 +1,26 @@
-﻿using Exiled.Events.EventArgs;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-using PlayerHandler = Exiled.Events.Handlers.Player;
-using ItemHandler = Exiled.Events.Handlers.Item;
+using MEC;
+
 using InventorySystem.Items.Firearms.Attachments;
-using System.Collections.Generic;
+
+using Exiled.API.Features;
+using Exiled.API.Features.Items;
+using Exiled.Events.EventArgs;
+
 using ItemUtils.Events;
 using ItemUtils.Events.EventArgs;
-using Exiled.API.Features.Items;
+
+using FirearmBase = InventorySystem.Items.Firearms.Firearm;
+using PlayerHandler = Exiled.Events.Handlers.Player;
+using ItemHandler = Exiled.Events.Handlers.Item;
+
 
 namespace ItemUtils.API.Modifiers
 {
     public class FirearmModifier : WeaponModifier
     {
-        //attachement modification support soon (tm)
-        //all needs testing
         public bool NeedsAmmo { get; set; } = true;
         public bool CanDisarm { get; set; } = true;
         public Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>> ModifiedAttachments { get; set; } = new Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>();
@@ -22,6 +29,7 @@ namespace ItemUtils.API.Modifiers
         {
             PlayerHandler.Handcuffing += OnHandcuffing;
             ItemHandler.ChangingDurability += OnUsingAmmo;
+            ItemHandler.ChangingAttachments += OnChangingAttachments;
             CustomHandler.ObtainingItem += OnObtainingItem;
             base.RegisterEvents();
         }
@@ -29,9 +37,11 @@ namespace ItemUtils.API.Modifiers
         {
             PlayerHandler.Handcuffing -= OnHandcuffing;
             ItemHandler.ChangingDurability -= OnUsingAmmo;
+            ItemHandler.ChangingAttachments -= OnChangingAttachments;
             CustomHandler.ObtainingItem -= OnObtainingItem;
             base.UnregisterEvents();
         }
+
         public void OnUsingAmmo(ChangingDurabilityEventArgs ev)
         {
             if (!CanModify(ev.Firearm, ev.Player))
@@ -52,17 +62,33 @@ namespace ItemUtils.API.Modifiers
                 return;
 
             Firearm gun = ev.Item as Firearm;
+            Timing.CallDelayed(0.1f, () => ModifyAttachments(gun.Base));
+        }
+        public void OnChangingAttachments(ChangingAttachmentsEventArgs ev)
+        {
+            if (!CanModify(ev.Firearm, ev.Player))
+                return;
 
-            foreach (FirearmAttachment att in gun.Attachments)
+            Timing.CallDelayed(0.1f, () => ModifyAttachments(ev.Firearm.Base));
+        }
+
+        private void ModifyAttachments(FirearmBase gun)
+        {
+            Dictionary<AttachmentParam, float> oldPairs = gun.DictionarizedAttachmentParameters;
+
+            foreach (FirearmAttachment att in gun.Attachments.Where((att) => att.IsEnabled))
             {
-                if (!ModifiedAttachments.ContainsKey(att.Name))
-                    continue;
-
-                for (int i = 0; i < att.Settings.SerializedParameters.Length; i++)
+                if (ModifiedAttachments.TryGetValue(att.Name, out Dictionary<AttachmentParam, float> paramValues))
                 {
-                    if (ModifiedAttachments[att.Name].TryGetValue(att.Settings.SerializedParameters[i].Parameter, out float multi))
-                        att.Settings.SerializedParameters[i].Value *= multi;
-                          
+                    foreach (KeyValuePair<AttachmentParam, float> newPair in paramValues)
+                    {
+                        if (oldPairs.ContainsKey(newPair.Key))
+                            oldPairs[newPair.Key] = AttachmentsUtils.ProcessValue(gun, newPair.Value, newPair.Key);
+                        else
+                            oldPairs.Add(newPair.Key, newPair.Value);
+
+                        Log.Debug($"The value of {newPair.Key} has been changed to {oldPairs[newPair.Key]}");
+                    }
                 }
             }
         }

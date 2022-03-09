@@ -12,13 +12,14 @@ using System.Reflection.Emit;
 
 using static HarmonyLib.AccessTools;
 
+
 namespace ItemUtils.Events.Patches
 {
     [HarmonyPatch(typeof(InventoryExtensions), nameof(InventoryExtensions.ServerAddItem))]
     public class ObtainingItemPatch
     {
         // using il because armor ammo limits don't update client side using postfix
-        // still doesn't work cause client is stubborn and doesn't update it's limits accordingly
+        // still doesn't work cause client is stubborn and doesn't update it's limits accordingly -_-
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
