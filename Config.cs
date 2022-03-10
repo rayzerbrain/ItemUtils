@@ -51,7 +51,7 @@ namespace ItemUtils
                     ItemType.Coin,
                     ItemType.ArmorHeavy,
                 },
-                Scale = new Vector3(2, 2, 2),
+                Scale = new Vector3(1.5f, 1.5f, 1.5f),
             },
             
             ["SmallFlashlight"] = new ItemModifier
@@ -69,13 +69,7 @@ namespace ItemUtils
                 {
                     ItemType.ArmorHeavy,
                 },
-                Scale = new Vector3(1.2f, 1.2f, 1.2f),
-                AmmoLimitMultis = 
-                {
-                    {
-                        AmmoType.Nato9, 1.2f
-                    }
-                },
+                Scale = new Vector3(0.9f, 0.9f, 0.9f),
                 BodyProtectionMulti = 1.2f,
             },
 

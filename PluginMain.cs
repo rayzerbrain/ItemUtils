@@ -22,21 +22,21 @@ namespace ItemUtils
         public override string Name => "ItemUtils";
 
         private List<ItemModifier> loadedModifiers;
-        private Harmony hrmny;
-        
+        private Harmony harmony;
+
         public override void OnEnabled()
         {
             Singleton = this;
-            hrmny = new Harmony(Name);
-            hrmny.PatchAll();
+            harmony = new Harmony(Name);
+            harmony.PatchAll();
             LoadModifiers();
             base.OnEnabled();
         }
         public override void OnDisabled()
         {
             UnloadModifiers();
-            hrmny.UnpatchAll();
-            hrmny = null;
+            harmony.UnpatchAll();
+            harmony = null;
             Singleton = null;
             base.OnDisabled();
         }
@@ -50,9 +50,6 @@ namespace ItemUtils
             foreach (KeyValuePair<string, object> map in Config.ItemModifiers)
             {
                 ItemModifier mod = sd.FindValidSubtype(Loader.Serializer.Serialize(map.Value), types);
-
-                if (mod.AffectedItems.IsEmpty())
-                    Log.Warn($"The modifier {map.Key} does not affect any items!");
 
                 mod.RegisterEvents();
                 loadedModifiers.Add(mod);

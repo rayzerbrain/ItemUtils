@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Interactables.Interobjects.DoorUtils;
 
@@ -6,8 +7,8 @@ using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using Exiled.Events.EventArgs;
 
-
 using PlayerHandler = Exiled.Events.Handlers.Player;
+
 
 namespace ItemUtils.API.Modifiers
 {
@@ -41,7 +42,7 @@ namespace ItemUtils.API.Modifiers
         public void OnInteractingLocker(InteractingLockerEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions);
         public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
         
-        public bool CheckPermissions(Player plyr, KeycardPermissions perms)
+        private bool CheckPermissions(Player plyr, KeycardPermissions perms)
         {
             Log.Debug($"Starting check of permissions {perms}", PluginMain.Instance.Config.DebugMode);
 
@@ -50,35 +51,30 @@ namespace ItemUtils.API.Modifiers
 
             if (perms.HasFlagFast(KeycardPermissions.ScpOverride))
             {
-                perms -= KeycardPermissions.ScpOverride;
                 if (plyr.IsScp)
                     return true;
+                perms -= KeycardPermissions.ScpOverride;
             }
 
             if (CanBeUsedRemotely)
             {
                 foreach (Item item in plyr.Items)
                 {
-                    if (item is Keycard _card && CheckPermissions(_card, perms) && CanModify(_card.Type))
+                    if (item is Keycard _card && CanModify(_card.Type) && CheckPermissions(_card, perms))
                         return true;
                 }
             }
+
             return plyr.CurrentItem is Keycard card && CheckPermissions(card, perms);
         }
-        public bool CheckPermissions(Keycard card, KeycardPermissions perms)
+        private bool CheckPermissions(Keycard card, KeycardPermissions perms)
         {
             KeycardPermissions newPerms = card.Base.Permissions;
 
             if (CanModify(card, card.Owner))
             {
-                foreach (KeycardPermissions perm in AddedPermissions)
-                {
-                    newPerms += (ushort)perm;
-                }
-                foreach (KeycardPermissions perm in RemovedPermissions)
-                {
-                    newPerms -= (ushort)perm;
-                }
+                newPerms += (ushort)AddedPermissions.Sum((perm) => (ushort)perm);
+                newPerms -= (ushort)RemovedPermissions.Sum((perm) => (ushort)perm);
             }
 
             Log.Debug($"Checking permission {perms} against card with perms {newPerms}", PluginMain.Instance.Config.DebugMode);

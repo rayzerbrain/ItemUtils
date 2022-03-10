@@ -6,7 +6,6 @@ using ItemUtils.Events;
 using ItemUtils.Events.EventArgs;
 
 using RadioItem = Exiled.API.Features.Items.Radio;
-
 using PlayerHandler = Exiled.Events.Handlers.Player;
 
 
@@ -14,7 +13,6 @@ namespace ItemUtils.API.Modifiers
 {
     public class DepletableModifier : ItemModifier
     {
-        //All needs testing
         public float StartingEnergyMulti { get; set; } = 1;
         public bool HasInfiniteUse { get; set; } = false;
         
@@ -37,6 +35,7 @@ namespace ItemUtils.API.Modifiers
                 return;
 
             Log.Debug($"Changing battery of item {ev.Item.Type}", PluginMain.Instance.Config.DebugMode);
+            
             if (ev.Item is MicroHid micro)
                 micro.Energy *= StartingEnergyMulti;
             else if (ev.Item is RadioItem radio)
