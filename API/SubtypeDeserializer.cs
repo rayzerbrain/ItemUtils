@@ -25,7 +25,7 @@ namespace ItemUtils.API
             {
                 if (TryDeserialize(rawConfig, t, out TBase newObj))
                 {
-                    if (baseObj.GetType().IsSubclassOf(t) || baseObj == null)
+                    if (baseObj == null || baseObj.GetType().IsSubclassOf(t))
                     {
                         baseObj = newObj;
                         Log.Debug($"\tObject type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
