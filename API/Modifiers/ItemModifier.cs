@@ -39,7 +39,6 @@ namespace ItemUtils.API.Modifiers
             PlayerHandler.DroppingItem -= OnDroppingItem;
         }
         public void OnWaitingForPlayers() => RegisteredSerials.Clear();
-        //Spawning item event is never called, Needs Fixing
         public void OnSpawningItem(SpawningItemEventArgs ev)
         {
             Timing.CallDelayed(0.1f, () => 
@@ -64,8 +63,7 @@ namespace ItemUtils.API.Modifiers
                 pickup.Scale = Scale;
             });
         }
-        // For null checks
-        public bool CanModify(Pickup p)
+        private bool CanModify(Pickup p)
         {
             CustomItem.TryGet(p, out CustomItem ci);
             return CanModify(p?.Type) && CanModify(ci);
@@ -75,6 +73,7 @@ namespace ItemUtils.API.Modifiers
             CustomItem.TryGet(item, out CustomItem ci);
             return CanModify(item?.Type) && CanModify(ci) && plyr != null && !IgnoredRoles.Contains(plyr.Role.Type);
         }
+        // Null safe
         public bool CanModify(ItemType? t) =>
             t != null && t != ItemType.None && (AffectedItems.Contains((ItemType)t) || AffectedItems.Contains(ItemType.None));
         private bool CanModify(CustomItem ci) =>

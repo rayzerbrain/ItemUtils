@@ -62,7 +62,6 @@ namespace ItemUtils.API.Modifiers
                 {
                     if (ModifiedAttachments[att.Name].TryGetValue(att.Settings.SerializedParameters[i].Parameter, out float multi))
                         att.Settings.SerializedParameters[i].Value *= multi;
-                          
                 }
             }
         }

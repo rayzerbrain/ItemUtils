@@ -23,10 +23,9 @@ namespace ItemUtils.API
 
             foreach (Type t in types)
             {
-                
                 if (TryDeserialize(rawConfig, t, out TBase newObj))
                 {
-                    if (baseObj == null || baseObj.GetType().IsSubclassOf(t))
+                    if (baseObj.GetType().IsSubclassOf(t) || baseObj == null)
                     {
                         baseObj = newObj;
                         Log.Debug($"\tObject type becoming new type {t}", PluginMain.Instance.Config.DebugMode);
@@ -35,7 +34,6 @@ namespace ItemUtils.API
             }
             
             Log.Debug($"Highest valid type was {baseObj.GetType()}", PluginMain.Instance.Config.DebugMode);
-
             Log.Assert(baseObj != null, $"Your config is not set up properly! Config:\n{rawConfig}");
 
             return baseObj;
@@ -52,7 +50,7 @@ namespace ItemUtils.API
                 string prop = "\n" + line.Substring(0, line.IndexOf(':') + 1);
                 if (!allProps.Contains(prop))
                 {
-                    Log.Debug($"Object was not {t} because of{prop}", PluginMain.Instance.Config.DebugMode);
+                    Log.Debug($"Object was not {t} because of {prop}", PluginMain.Instance.Config.DebugMode);
                     obj = null;
                     return false;
                 }

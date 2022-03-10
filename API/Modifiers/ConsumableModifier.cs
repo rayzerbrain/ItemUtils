@@ -11,8 +11,8 @@ namespace ItemUtils.API.Modifiers
     public class ConsumableModifier : ItemModifier
     {
         public float UseTimeMulti { get; set; } = 1;
-        public float HpAdded { get; set; } = 0; //tested
-        public float AhpAdded { get; set; } = 0; //tested
+        public float HpAdded { get; set; } = 0;
+        public float AhpAdded { get; set; } = 0;
         public List<ConfigurableEffect> Effects { get; set; } = new List<ConfigurableEffect>();
 
         public override void RegisterEvents()
@@ -30,9 +30,7 @@ namespace ItemUtils.API.Modifiers
         public void OnUsingItem(UsingItemEventArgs ev)
         {
             if (CanModify(ev.Item, ev.Player))
-            {
                 ev.Item.UseTime *= UseTimeMulti;
-            }
         }
         public void OnUsedItem(UsedItemEventArgs ev)
         {
@@ -42,12 +40,13 @@ namespace ItemUtils.API.Modifiers
             if (HpAdded >= 0) 
                 ev.Player.Heal(HpAdded);
             else 
-                ev.Player.Hurt(HpAdded); //Hopefully this reason won't be needed
+                ev.Player.Hurt(HpAdded);
 
             if (AhpAdded > 0 || ev.Player.ActiveArtificialHealthProcesses.Any())
                 ev.Player.ArtificialHealth += AhpAdded;
 
             int rand = UnityEngine.Random.Range(0, 99);
+
             foreach (ConfigurableEffect effect in Effects)
             {
                 if (rand < effect.Chance) 
