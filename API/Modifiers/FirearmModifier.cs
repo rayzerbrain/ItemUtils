@@ -83,12 +83,12 @@ namespace ItemUtils.API.Modifiers
                     {
                         if (oldPairs.ContainsKey(newPair.Key))
                         {
-                            Log.Debug($"Old value for {newPair.Key} was {oldPairs[newPair.Key]}");
+                            Log.Debug($"Old value is {oldPairs[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
                             oldPairs[newPair.Key] = AttachmentsUtils.ProcessValue(gun, newPair.Value, newPair.Key);
-                            Log.Debug($"Now it is {oldPairs[newPair.Key]}");
                         }
                         else
                             oldPairs.Add(newPair.Key, newPair.Value);
+                        Log.Debug($"{newPair.Key} is now {oldPairs[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
                     }
                 }
             }

@@ -91,15 +91,15 @@ namespace ItemUtils
                 ScpDamageMulti = 1.2f,
                 ModifiedAttachments =
                 {
-                    [AttachmentNameTranslation.Foregrip] =
+                    [AttachmentNameTranslation.Foregrip] = new Dictionary<AttachmentParam, float>()
                     {
-                        [AttachmentParam.HipInaccuracyMultiplier] = 0.9f
+                        [AttachmentParam.HipInaccuracyMultiplier] = 0.9f,
                     },
                 },
             },
         };
 
         [Description("Indicates whether the plugin will show debug logs")]
-        public bool DebugMode { get; set; } = false;
+        public bool DebugMode { get; set; } = true;
     }
 }
