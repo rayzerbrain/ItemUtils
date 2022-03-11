@@ -83,11 +83,13 @@ namespace ItemUtils.API.Modifiers
                     foreach (KeyValuePair<AttachmentParam, float> newPair in paramValues)
                     {
                         if (oldPairs.ContainsKey(newPair.Key))
+                        {
+                            Log.Debug($"Old value for {newPair.Key} was {oldPairs[newPair.Key]}");
                             oldPairs[newPair.Key] = AttachmentsUtils.ProcessValue(gun, newPair.Value, newPair.Key);
+                            Log.Debug($"Now it is {oldPairs[newPair.Key]}");
+                        }
                         else
                             oldPairs.Add(newPair.Key, newPair.Value);
-
-                        Log.Debug($"The value of {newPair.Key} has been changed to {oldPairs[newPair.Key]}");
                     }
                 }
             }
