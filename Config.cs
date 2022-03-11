@@ -28,7 +28,7 @@ namespace ItemUtils
         [Description("Modifier descriptions for items")]
         public Dictionary<string, object> ItemModifiers { get; set; } = new Dictionary<string, object>()
         {
-            ["InfiniteRadio"] = new DepletableModifier
+            ["Infinite Radio"] = new DepletableModifier
             {
                 AffectedItems = 
                 {
@@ -43,18 +43,8 @@ namespace ItemUtils
                 },
                 HasInfiniteUse = true,
             },
-
-            ["BigItem"] = new ItemModifier
-            {
-                AffectedItems = 
-                {
-                    ItemType.Coin,
-                    ItemType.ArmorHeavy,
-                },
-                Scale = new Vector3(1.5f, 1.5f, 1.5f),
-            },
             
-            ["SmallFlashlight"] = new ItemModifier
+            ["Small Flashlight"] = new ItemModifier
             {
                 AffectedItems = 
                 {
@@ -62,18 +52,8 @@ namespace ItemUtils
                 },
                 Scale = new Vector3(1, 1, 0.75f),
             },
-            
-            ["ModifiedHeavyArmor"] = new ArmorModifier
-            {
-                AffectedItems =
-                {
-                    ItemType.ArmorHeavy,
-                },
-                Scale = new Vector3(0.9f, 0.9f, 0.9f),
-                BodyProtectionMulti = 1.2f,
-            },
 
-            ["ModifiedPainkillers"] = new ConsumableModifier 
+            ["Modified Painkillers"] = new ConsumableModifier 
             {
                 AffectedItems = 
                 {
@@ -93,7 +73,7 @@ namespace ItemUtils
                 },
             },
             
-            ["ModifiedContainmentEngineer"] = new KeycardModifier
+            ["Modified Containment Engineer"] = new KeycardModifier
             {
                 AffectedItems =
                 {
@@ -102,7 +82,7 @@ namespace ItemUtils
                 AddedPermissions = { KeycardPermissions.AlphaWarhead, KeycardPermissions.Intercom }
             },
             
-            ["ModifiedLogicer"] = new FirearmModifier
+            ["Modified Logicer"] = new FirearmModifier
             {
                 AffectedItems =
                 {
