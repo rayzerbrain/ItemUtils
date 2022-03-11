@@ -10,7 +10,7 @@ using ItemUtils.API;
 using ItemUtils.API.Modifiers;
 
 using KeycardPermissions = Interactables.Interobjects.DoorUtils.KeycardPermissions;
-
+using InventorySystem.Items.Firearms.Attachments;
 
 namespace ItemUtils
 {
@@ -89,6 +89,13 @@ namespace ItemUtils
                     ItemType.GunLogicer,
                 },
                 ScpDamageMulti = 1.2f,
+                ModifiedAttachments =
+                {
+                    [AttachmentNameTranslation.Foregrip] =
+                    {
+                        [AttachmentParam.HipInaccuracyMultiplier] = 0.9f
+                    },
+                },
             },
         };
 
