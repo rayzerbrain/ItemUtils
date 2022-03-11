@@ -32,10 +32,8 @@ namespace ItemUtils.API.Modifiers
 
         public void OnObtainingItem(ObtainingItemEventArgs ev)
         {
-            if (!CanModify(ev.Item, ev.Player))
+            if (!CanModify(ev.Item, ev.Player) || !(ev.Item is Armor armor))
                 return;
-
-            Armor armor = ev.Item as Armor;
 
             /*for (int i=0; i<armor.Base.AmmoLimits.Length; i++)
             {
