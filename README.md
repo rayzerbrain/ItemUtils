@@ -75,7 +75,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |removed_permissions|Keycards|List\<KeycardPermission>|[ ]|List of permissions the card will lose|
 |needs_ammo|Guns|Boolean|true|Determines whether the gun needs ammo to fire|
 |can_disarm|Guns|Boolean|true|Determines whether the gun can be used to disarm someone|
-|modified_attachments|Guns|Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>|{ }|A list of modified attachments the gun will have. See the config above for an example|
+|modified_attachments|Guns|Dictionary|{ }|A list of modified attachments the gun will have. See the config above for an example|
 |effect_duration_multi|Grenades|float|1|Affects how long the effects of a grenade will last on a player|
 |fuse_time_multi|Grenades|float|1|Affects the fuse time of a grenade|
 |ammo_limit_multis|Armors|Dictionary<AmmoType, float>|{ }|Affects the ammo limits of a type of armor (currently unavailable due to client side checks)|
