@@ -39,9 +39,16 @@ item_utils:
         x: 1
         y: 0.25
         z: 1
+    modified logicer:
+      affected_items:
+        - GunLogicer
+      modified_attachments:
+        None:
+          DamageMultiplier: 1.01
+        HipInaccuracyMultiplier: 1.05
   debug_mode: false
 ```
-Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously.
+Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously. This is also true for attachments: using None as the modifier name will affect the default gun's stats regardless of the attachments on it.
 
 Also note that since the `flat_item` modifier is declared after `health_increaser`, `flat_item` has "higher priority".
 This is important because the modifier with the higher priority will take effect LAST. 
@@ -68,6 +75,7 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 |removed_permissions|Keycards|List of permissions the card will lose|List\<KeycardPermission>|[ ]|
 |needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|
 |can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|
+|modified_attachments|Guns|A list of modified attachments the gun will have. See the config above for an example|Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>|{ }
 |effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|
 |fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|
 |ammo_limit_multis|Armors|Affects the ammo limits of a type of armor (currently unavailable due to client side checks)|Dictionary<AmmoType, float>|{ }|
@@ -80,3 +88,35 @@ NOTE: Many properties require specific pre-defined values, like the names of typ
 Last updated 2/25 22:02, Feel free to suggest additional ones.
 
 Possibly more coming soon<sup>TM</sup>...
+
+# Attachments
+Version 1.2 brings modifiable attachments. MANY modifiers/parameters are NOT able to be affected, like the zoom/speed/loudness, but things like recoil/inaccuracy/damage are.
+
+See below for a list of modifiable attachment attributes. 
+
+NOTE: if an attachment already affects that specific modifier, it's value will be changed, not completely replaced.
+Not all of the values are directly multiplied; Running the plugin with debug mode enabled lets you see how the values are changed.
+
+### Attachment Modifiers (AttachmentParam)
+
+```yaml
+AdsZoomMultiplier 
+AdsMouseSensitivityMultiplier 
+DamageMultiplier 
+PenetrationMultiplier 
+FireRateMultiplier 
+OverallRecoilMultiplier 
+AdsRecoilMultiplier 
+BulletInaccuracyMultiplier 
+HipInaccuracyMultiplier 
+AdsInaccuracyMultiplier 
+DrawSpeedMultiplier 
+GunshotLoudnessMultiplier 
+MagazineCapacityModifier 
+DrawTimeModifier 
+ReloadTimeModifier 
+ShotClipIdOverride 
+AdsSpeedMultiplier 
+SpreadMultiplier 
+SpreadPredictability
+```
