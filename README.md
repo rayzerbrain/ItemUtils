@@ -45,7 +45,10 @@ item_utils:
       modified_attachments:
         None:
           DamageMultiplier: 1.01
-        HipInaccuracyMultiplier: 1.05
+        Foregrip:
+          HipInaccuracyMultiplier: 1.05
+        Flashlight: 
+          BulletInaccuracyMultiplier: 0.9
   debug_mode: false
 ```
 Note how the flat_item modifier affects the item "None". This inversely represents ALL items, so use this to affect attributes of all items simultaneously. This is also true for attachments: using None as the modifier name will affect the default gun's stats regardless of the attachments on it.
