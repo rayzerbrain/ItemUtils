@@ -59,35 +59,33 @@ Most attributes have examples within the default config that comes with the plug
 NOTE: Many properties require specific pre-defined values, like the names of types of items(ItemType) and roles(RoleType). To find the exact definition of these values, go to #resources in the exiled discord or ask around
 
 
-|Modifiable Attribute|Valid Items|Description|Data type|Default value|
-|--------------|------|----------------------------------|------|-------------|
-|affected_items|All|The list of items that will receive modifications|List\<ItemType>|[ ]|
-|ignored_roles|All|Prevents modifications from taking effect for each role in this list|List\<RoleType>|[ ]|
-|scale|All|Permanently changes the scale of the item|Vector3|x: 1, y: 1, z: 1|
-|scp_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Scps|float|1|
-|human_damage_multi|Grenades and Guns|Affects the amount of damage dealt to Humans|float|1|
-|use_time_multi|Consumables (and hat)|Affects how long it takes to completely use an item|float|1|
-|hp_added|Consumables (and hat)|Adds a certain amount of hp after using the item|float|0|
-|ahp_added|Consumables (and hat)|Adds an amount of ahp after using the item|float|0|
-|effects|Consumables (and hat)|List of effects that the item can give after being used (these can modified in duration and chance)|List\<EffectType>|[ ]|
-|can_be_used_remotely|Keycards|Determines if the card can be used from the inventory|Boolean|false|
-|added_permissions|Keycards|List of permissions the card will gain|List\<KeycardPermission>|[ ]|
-|removed_permissions|Keycards|List of permissions the card will lose|List\<KeycardPermission>|[ ]|
-|needs_ammo|Guns|Determines whether the gun needs ammo to fire|Boolean|true|
-|can_disarm|Guns|Determines whether the gun can be used to disarm someone|Boolean|true|
-|modified_attachments|Guns|A list of modified attachments the gun will have. See the config above for an example|Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>|{ }
-|effect_duration_multi|Grenades|Affects how long the effects of a grenade will last on a player|float|1|
-|fuse_time_multi|Grenades|Affects the fuse time of a grenade|float|1|
-|ammo_limit_multis|Armors|Affects the ammo limits of a type of armor (currently unavailable due to client side checks)|Dictionary<AmmoType, float>|{ }|
-|helmet_protection_multi|Armors|Affects the amount of headshot protection the armor gives|float|1|
-|body_protection_multi|Armors|Affects the amount of body protection the armor gives|float|1|
-|stamina_use_multi|Armors|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|float|Varies|
-|starting_energy_multi|Micro and Radio|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|float|1|
-|has_infinite_use|Micro and Radio|Determines whether the item can be used indefinitely or not|Boolean|false|
+|Modifiable Attribute|Valid Items|Data type|Default value|Description|
+|--------------------|-----------|---------|-------------|-----------|
+|affected_items|All|List\<ItemType>|[ ]|The list of items that will receive modifications|
+|ignored_roles|All|List\<RoleType>|[ ]|Prevents modifications from taking effect for each role in this list|
+|scale|All|Vector3|x: 1, y: 1, z: 1|Permanently changes the scale of the item|
+|scp_damage_multi|Grenades and Guns|float|1|Affects the amount of damage dealt to Scps|
+|human_damage_multi|Grenades and Guns|float|1|Affects the amount of damage dealt to Humans|
+|use_time_multi|Consumables (and hat)|float|1|Affects how long it takes to completely use an item|
+|hp_added|Consumables (and hat)|float|0|Adds a certain amount of hp after using the item|
+|ahp_added|Consumables (and hat)|float|0|Adds an amount of ahp after using the item|
+|effects|Consumables (and hat)|List\<EffectType>|[ ]|List of effects that the item can give after being used (these can modified in duration and chance)|
+|can_be_used_remotely|Keycards|Boolean|false|Determines if the card can be used from the inventory|
+|added_permissions|Keycards|List\<KeycardPermission>|[ ]|List of permissions the card will gain|
+|removed_permissions|Keycards|List\<KeycardPermission>|[ ]|List of permissions the card will lose|
+|needs_ammo|Guns|Boolean|true|Determines whether the gun needs ammo to fire|
+|can_disarm|Guns|Boolean|true|Determines whether the gun can be used to disarm someone|
+|modified_attachments|Guns|Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>|{ }|A list of modified attachments the gun will have. See the config above for an example|
+|effect_duration_multi|Grenades|float|1|Affects how long the effects of a grenade will last on a player|
+|fuse_time_multi|Grenades|float|1|Affects the fuse time of a grenade|
+|ammo_limit_multis|Armors|Dictionary<AmmoType, float>|{ }|Affects the ammo limits of a type of armor (currently unavailable due to client side checks)|
+|helmet_protection_multi|Armors|float|1|Affects the amount of headshot protection the armor gives|
+|body_protection_multi|Armors|float|1|Affects the amount of body protection the armor gives|
+|stamina_use_multi|Armors|float|Varies|Sets the stamina usage multiplier (note: can ONLY be between 1 and 2)|
+|starting_energy_multi|Micro and Radio|float|1|Affects the amount of energy the item starts with. (note: must be less than or equal to one)|
+|has_infinite_use|Micro and Radio|Boolean|false|Determines whether the item can be used indefinitely or not|
   
-Last updated 2/25 22:02, Feel free to suggest additional ones.
-
-Possibly more coming soon<sup>TM</sup>...
+Feel free to suggest additional ones.
 
 # Attachments
 Version 1.2 brings modifiable attachments. MANY modifiers/parameters are NOT able to be affected, like the zoom/speed/loudness, but things like recoil/inaccuracy/damage are.
