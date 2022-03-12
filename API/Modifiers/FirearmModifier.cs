@@ -70,27 +70,31 @@ namespace ItemUtils.API.Modifiers
 
             Timing.CallDelayed(0.1f, () => ModifyAttachments(ev.Firearm.Base));
         }
-
         private void ModifyAttachments(FirearmBase gun)
         {
-            Dictionary<AttachmentParam, float> oldPairs = gun.DictionarizedAttachmentParameters;
+            if (ModifiedAttachments.TryGetValue(AttachmentNameTranslation.None, out Dictionary<AttachmentParam, float> defaultParams))
+                ModifyParameters(gun, defaultParams);
 
-            foreach (FirearmAttachment att in gun.Attachments.Where((att) => att.IsEnabled))
+            foreach (FirearmAttachment att in gun.Attachments.Where((att) => att.IsEnabled && att.Name != AttachmentNameTranslation.None))
             {
-                if (ModifiedAttachments.TryGetValue(att.Name, out Dictionary<AttachmentParam, float> paramValues))
+                if (ModifiedAttachments.TryGetValue(att.Name, out Dictionary<AttachmentParam, float> attParams))
+                    ModifyParameters(gun, attParams);
+            }
+        }
+        private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
+        {
+            Dictionary<AttachmentParam, float> oldParams = gun.DictionarizedAttachmentParameters;
+
+            foreach (KeyValuePair<AttachmentParam, float> newPair in newParams)
+            {
+                if (oldParams.ContainsKey(newPair.Key))
                 {
-                    foreach (KeyValuePair<AttachmentParam, float> newPair in paramValues)
-                    {
-                        if (oldPairs.ContainsKey(newPair.Key))
-                        {
-                            Log.Debug($"Old value is {oldPairs[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
-                            oldPairs[newPair.Key] = AttachmentsUtils.ProcessValue(gun, newPair.Value, newPair.Key);
-                        }
-                        else
-                            oldPairs.Add(newPair.Key, newPair.Value);
-                        Log.Debug($"{newPair.Key} is now {oldPairs[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
-                    }
+                    Log.Debug($"Old value was {oldParams[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
+                    oldParams[newPair.Key] = AttachmentsUtils.ProcessValue(gun, newPair.Value, newPair.Key);
                 }
+                else
+                    oldParams.Add(newPair.Key, newPair.Value);
+                Log.Debug($"{newPair.Key} is now {oldParams[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
             }
         }
     }
