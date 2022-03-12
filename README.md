@@ -41,7 +41,7 @@ item_utils:
         z: 1
     modified logicer:
       affected_items:
-        - GunLogicer
+      - GunLogicer
       modified_attachments:
         None:
           DamageMultiplier: 1.01
