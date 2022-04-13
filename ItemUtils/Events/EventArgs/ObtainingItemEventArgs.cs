@@ -10,7 +10,7 @@ namespace ItemUtils.Events.EventArgs
     {
         public Player Player { get; }
         public Item Item { get; }
-
+        
         public ObtainingItemEventArgs(ReferenceHub hub, ItemBase item)
         {
             Player = Player.Get(hub);

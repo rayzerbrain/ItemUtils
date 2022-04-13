@@ -91,7 +91,7 @@ namespace ItemUtils
                 ScpDamageMulti = 1.2f,
                 ModifiedAttachments =
                 {
-                    [AttachmentNameTranslation.Foregrip] = new Dictionary<AttachmentParam, float>()
+                    [AttachmentName.Foregrip] = new Dictionary<AttachmentParam, float>()
                     {
                         [AttachmentParam.HipInaccuracyMultiplier] = 0.9f,
                     },

@@ -15,7 +15,7 @@ using ItemUtils.Events.EventArgs;
 using FirearmBase = InventorySystem.Items.Firearms.Firearm;
 using PlayerHandler = Exiled.Events.Handlers.Player;
 using ItemHandler = Exiled.Events.Handlers.Item;
-
+using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -23,7 +23,7 @@ namespace ItemUtils.API.Modifiers
     {
         public bool NeedsAmmo { get; set; } = true;
         public bool CanDisarm { get; set; } = true;
-        public Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>> ModifiedAttachments { get; set; } = new Dictionary<AttachmentNameTranslation, Dictionary<AttachmentParam, float>>();
+        public Dictionary<AttachmentName, Dictionary<AttachmentParam, float>> ModifiedAttachments { get; set; } = new Dictionary<AttachmentName, Dictionary<AttachmentParam, float>>();
         
         public override void RegisterEvents()
         {
@@ -72,19 +72,19 @@ namespace ItemUtils.API.Modifiers
         }
         private void ModifyAttachments(FirearmBase gun)
         {
-            if (ModifiedAttachments.TryGetValue(AttachmentNameTranslation.None, out Dictionary<AttachmentParam, float> defaultParams))
+            if (ModifiedAttachments.TryGetValue(AttachmentName.None, out Dictionary<AttachmentParam, float> defaultParams))
                 ModifyParameters(gun, defaultParams);
 
-            foreach (FirearmAttachment att in gun.Attachments.Where((att) => att.IsEnabled && att.Name != AttachmentNameTranslation.None))
+            foreach (Attachment att in gun.Attachments.Where((att) => att.IsEnabled && att.Name != AttachmentName.None))
             {
                 if (ModifiedAttachments.TryGetValue(att.Name, out Dictionary<AttachmentParam, float> attParams))
                     ModifyParameters(gun, attParams);
             }
         }
-        private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
+        /*private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
         {
-            Dictionary<AttachmentParam, float> oldParams = gun.DictionarizedAttachmentParameters;
-
+            Dictionary<AttachmentParam, float> oldParams = AttachmentParameterDefinition.Definitions;
+            AttachmentParameterDefinition.Definitions.Add(null, null);
             foreach (KeyValuePair<AttachmentParam, float> newPair in newParams)
             {
                 if (oldParams.ContainsKey(newPair.Key))
@@ -95,6 +95,18 @@ namespace ItemUtils.API.Modifiers
                 else
                     oldParams.Add(newPair.Key, newPair.Value);
                 Log.Debug($"{newPair.Key} is now {oldParams[newPair.Key]}", PluginMain.Instance.Config.DebugMode);
+            }
+        }*/
+
+        private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
+        {
+            foreach (Attachment att in gun.Attachments)
+            {
+                foreach (KeyValuePair<AttachmentParam, float> pair in newParams)
+                {
+                    if (att.TryGetValue(pair.Key, out _))
+                        att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
+                }
             }
         }
     }
