@@ -100,6 +100,6 @@ namespace ItemUtils
         };
 
         [Description("Indicates whether the plugin will show debug logs")]
-        public bool DebugMode { get; set; } = true;
+        public bool DebugMode { get; set; } = false;
     }
 }
