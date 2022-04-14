@@ -72,13 +72,14 @@ namespace ItemUtils.API.Modifiers
         }
         private void ModifyAttachments(FirearmBase gun)
         {
+            //this should affect a random attachment on the gun, but since it is reset each att change it doesn't matter which one it affects
             if (ModifiedAttachments.TryGetValue(AttachmentName.None, out Dictionary<AttachmentParam, float> defaultParams))
-                ModifyParameters(gun, defaultParams);
+                ModifyParameters(gun, gun.Attachments.FirstOrDefault(), defaultParams);
 
             foreach (Attachment att in gun.Attachments.Where((att) => att.IsEnabled && att.Name != AttachmentName.None))
             {
                 if (ModifiedAttachments.TryGetValue(att.Name, out Dictionary<AttachmentParam, float> attParams))
-                    ModifyParameters(gun, attParams);
+                    ModifyParameters(gun, att, attParams);
             }
         }
         /*private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
@@ -98,15 +99,12 @@ namespace ItemUtils.API.Modifiers
             }
         }*/
 
-        private void ModifyParameters(FirearmBase gun, Dictionary<AttachmentParam, float> newParams)
+        private void ModifyParameters(FirearmBase gun, Attachment att, Dictionary<AttachmentParam, float> newParams)
         {
-            foreach (Attachment att in gun.Attachments)
+            foreach (KeyValuePair<AttachmentParam, float> pair in newParams)
             {
-                foreach (KeyValuePair<AttachmentParam, float> pair in newParams)
-                {
-                    if (att.TryGetValue(pair.Key, out _))
-                        att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
-                }
+                if (att.TryGetValue(pair.Key, out _))
+                   att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
             }
         }
     }
