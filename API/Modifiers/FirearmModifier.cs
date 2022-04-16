@@ -4,6 +4,7 @@ using System.Linq;
 using MEC;
 
 using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items.Firearms.Attachments.Components;
 
 using Exiled.API.Features;
 using Exiled.API.Features.Items;
@@ -15,7 +16,6 @@ using ItemUtils.Events.EventArgs;
 using FirearmBase = InventorySystem.Items.Firearms.Firearm;
 using PlayerHandler = Exiled.Events.Handlers.Player;
 using ItemHandler = Exiled.Events.Handlers.Item;
-using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace ItemUtils.API.Modifiers
 {
@@ -28,17 +28,20 @@ namespace ItemUtils.API.Modifiers
         public override void RegisterEvents()
         {
             PlayerHandler.Handcuffing += OnHandcuffing;
-            ItemHandler.ChangingDurability += OnUsingAmmo;
-            ItemHandler.ChangingAttachments += OnChangingAttachments;
             CustomHandler.ObtainingItem += OnObtainingItem;
+            ItemHandler.ChangingAttachments += OnChangingAttachments;
+            ItemHandler.ChangingDurability += OnUsingAmmo;
+
+            //CustomHandler.ProcessingParamValue += OnProcessingParamValue;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
         {
             PlayerHandler.Handcuffing -= OnHandcuffing;
-            ItemHandler.ChangingDurability -= OnUsingAmmo;
-            ItemHandler.ChangingAttachments -= OnChangingAttachments;
             CustomHandler.ObtainingItem -= OnObtainingItem;
+            ItemHandler.ChangingAttachments -= OnChangingAttachments;
+            ItemHandler.ChangingDurability -= OnUsingAmmo;
+            //CustomHandler.ProcessingParamValue -= OnProcessingParamValue;
             base.UnregisterEvents();
         }
 
@@ -101,10 +104,10 @@ namespace ItemUtils.API.Modifiers
 
         private void ModifyParameters(FirearmBase gun, Attachment att, Dictionary<AttachmentParam, float> newParams)
         {
+            Log.Debug("Changing params for " + att.Name);
             foreach (KeyValuePair<AttachmentParam, float> pair in newParams)
             {
-                if (att.TryGetValue(pair.Key, out _))
-                   att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
+                att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
             }
         }
     }
