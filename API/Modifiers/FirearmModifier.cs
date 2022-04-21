@@ -77,7 +77,7 @@ namespace ItemUtils.API.Modifiers
         {
             //this should affect a random attachment on the gun, but since it is reset each att change it doesn't matter which one it affects
             if (ModifiedAttachments.TryGetValue(AttachmentName.None, out Dictionary<AttachmentParam, float> defaultParams))
-                ModifyParameters(gun, gun.Attachments.FirstOrDefault(), defaultParams);
+                ModifyParameters(gun, gun.Attachments.FirstOrDefault((att) => att != null && att.IsEnabled), defaultParams);
 
             foreach (Attachment att in gun.Attachments.Where((att) => att.IsEnabled && att.Name != AttachmentName.None))
             {
