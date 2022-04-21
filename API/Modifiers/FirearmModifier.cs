@@ -104,7 +104,7 @@ namespace ItemUtils.API.Modifiers
 
         private void ModifyParameters(FirearmBase gun, Attachment att, Dictionary<AttachmentParam, float> newParams)
         {
-            Log.Debug("Changing params for " + att.Name);
+            Log.Debug("Changing params for " + att.Name, PluginMain.Instance.Config.DebugMode);
             foreach (KeyValuePair<AttachmentParam, float> pair in newParams)
             {
                 att.SetParameterValue(pair.Key, gun.ProcessValue(pair.Value, pair.Key));
