@@ -23,6 +23,9 @@ namespace ItemUtils.API.Modifiers
     {
         public bool NeedsAmmo { get; set; } = true;
         public bool CanDisarm { get; set; } = true;
+        public float WeightMulti { get; set; } = 1;
+        public float LengthMulti { get; set; } = 1;
+
         public Dictionary<AttachmentName, Dictionary<AttachmentParam, float>> ModifiedAttachments { get; set; } = new Dictionary<AttachmentName, Dictionary<AttachmentParam, float>>();
         
         public override void RegisterEvents()
@@ -31,8 +34,6 @@ namespace ItemUtils.API.Modifiers
             CustomHandler.ObtainingItem += OnObtainingItem;
             ItemHandler.ChangingAttachments += OnChangingAttachments;
             ItemHandler.ChangingDurability += OnUsingAmmo;
-
-            //CustomHandler.ProcessingParamValue += OnProcessingParamValue;
             base.RegisterEvents();
         }
         public override void UnregisterEvents()
@@ -41,7 +42,6 @@ namespace ItemUtils.API.Modifiers
             CustomHandler.ObtainingItem -= OnObtainingItem;
             ItemHandler.ChangingAttachments -= OnChangingAttachments;
             ItemHandler.ChangingDurability -= OnUsingAmmo;
-            //CustomHandler.ProcessingParamValue -= OnProcessingParamValue;
             base.UnregisterEvents();
         }
 
@@ -64,7 +64,14 @@ namespace ItemUtils.API.Modifiers
             if (!CanModify(ev.Item, ev.Player) || !(ev.Item is Firearm gun))
                 return;
 
-            Timing.CallDelayed(0.1f, () => ModifyAttachments(gun.Base));
+            Timing.CallDelayed(0.1f, () =>
+            {
+                Log.Debug(gun.Base.BaseLength + ", " + gun.Base.BaseWeight);
+                gun.Base.BaseLength *= LengthMulti;
+                gun.Base.BaseWeight *= WeightMulti;
+                Log.Debug(gun.Base.BaseLength + ", " + gun.Base.BaseWeight);
+                ModifyAttachments(gun.Base);
+            });
         }
         public void OnChangingAttachments(ChangingAttachmentsEventArgs ev)
         {
