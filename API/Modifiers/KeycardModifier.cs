@@ -37,32 +37,29 @@ namespace ItemUtils.API.Modifiers
             base.UnregisterEvents();
         }
         
-        public void OnInteractingDoor(InteractingDoorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions);
-        public void OnUnlockingGenerator(UnlockingGeneratorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.ArmoryLevelTwo);
-        public void OnInteractingLocker(InteractingLockerEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions);
-        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead); 
+        public void OnInteractingDoor(InteractingDoorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions, ev.IsAllowed);
+        public void OnUnlockingGenerator(UnlockingGeneratorEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.ArmoryLevelTwo, ev.IsAllowed);
+        public void OnInteractingLocker(InteractingLockerEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, ev.Chamber.RequiredPermissions, ev.IsAllowed);
+        public void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev) => ev.IsAllowed = CheckPermissions(ev.Player, KeycardPermissions.AlphaWarhead, ev.IsAllowed); 
         
-        private bool CheckPermissions(Player plyr, KeycardPermissions perms)
+        private bool CheckPermissions(Player plyr, KeycardPermissions perms, bool oldResult)
         {
             Log.Debug($"Starting check of permissions {perms}", PluginMain.Instance.Config.DebugMode);
 
             if (perms == KeycardPermissions.None)
                 return true;
 
-            if (perms.HasFlagFast(KeycardPermissions.ScpOverride))
-            {
-                if (plyr.IsScp)
-                    return true;
-                perms -= KeycardPermissions.ScpOverride;
-            }
+            if (plyr.IsScp)
+                return oldResult;
 
             if (CanBeUsedRemotely)
             {
                 foreach (Item item in plyr.Items)
                 {
-                    if (item is Keycard _card && CanModify(_card.Type) && CheckPermissions(_card, perms))
+                    if (item is Keycard invCard && CanModify(invCard.Type) && CheckPermissions(invCard, perms))
                         return true;
                 }
+                return false;
             }
 
             return plyr.CurrentItem is Keycard card && CheckPermissions(card, perms);
