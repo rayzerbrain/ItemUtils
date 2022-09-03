@@ -14,8 +14,6 @@ namespace ItemUtils.API.Modifiers
 {
     public class KeycardModifier : ItemModifier
     {
-        //Only need to test remote cards
-        
         public bool CanBeUsedRemotely { get; set; } = false;
         public List<KeycardPermissions> AddedPermissions { get; set; } = new List<KeycardPermissions>();
         public List<KeycardPermissions> RemovedPermissions { get; set; } = new List<KeycardPermissions>();
@@ -46,11 +44,10 @@ namespace ItemUtils.API.Modifiers
         {
             Log.Debug($"Starting check of permissions {perms}", PluginMain.Instance.Config.DebugMode);
 
-            if (perms == KeycardPermissions.None)
-                return true;
-
-            if (plyr.IsScp)
+            if (perms == KeycardPermissions.None || plyr.IsScp)
                 return oldResult;
+
+            perms &= ~KeycardPermissions.ScpOverride;
 
             if (CanBeUsedRemotely)
             {
@@ -70,8 +67,8 @@ namespace ItemUtils.API.Modifiers
 
             if (CanModify(card, card.Owner))
             {
-                newPerms += (ushort)AddedPermissions.Sum((perm) => (ushort)perm);
-                newPerms -= (ushort)RemovedPermissions.Sum((perm) => (ushort)perm);
+                newPerms += (ushort)AddedPermissions.Sum(perm => (ushort)perm);
+                newPerms -= (ushort)RemovedPermissions.Sum(perm => (ushort)perm);
             }
 
             Log.Debug($"Checking permission {perms} against card with perms {newPerms}", PluginMain.Instance.Config.DebugMode);
