@@ -1,7 +1,7 @@
 # ItemUtils
 Exiled plugin allowing for extensive configuration of most base-game items.
 
-EXILED 5.0 ONLY. BEFORE REPORTING BUGS/ISSUES, MAKE SURE EVERYTHING IS UP TO DATE.
+ARCHIVED AS OF 2-16-2023
 
 ### Details
 99% of this plugin is operating from the configuration you must set up. Default configuration has been provided as an example, so when in doubt refer to it as an example.
